@@ -12,7 +12,7 @@ export default function SingleContribution({ unicavezOptions }: { unicavezOption
         </button>
       ) : (
         <div>
-          <p className="mb-2 text-muted">Elegí un monto para tu aporte único:</p>
+          <p className="mb-2 text-light">Elegí un monto para tu aporte único:</p>
           <div className="d-flex flex-wrap justify-content-center gap-2 mb-3">
             {unicavezOptions.map((opt, idx) => (
               <a
