@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createClient } from "@/prismicio";
 import { PrismicImage, PrismicRichText } from "@prismicio/react";
 import Link from "next/link";

@@ -1,38 +1,29 @@
 "use client";
-
 import Link from "next/link";
+import Image from "next/image";
+import { Navbar, Nav, Container } from "react-bootstrap";
 
 export default function JJNavbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm border-bottom border-primary sticky-top py-0" style={{ minHeight: 64 }}>
-      <div className="container-fluid px-3 px-lg-4">
-        <Link className="navbar-brand d-flex flex-shrink-0 align-items-center" href="/comunidad">
-          <img src="/logo-jj-2025.png" alt="JJ Circuito Cultural Logo" width={48} height={48} className="me-2" style={{ objectFit: 'contain', boxShadow: '0 0 24px #0ff6', borderRadius: "100%" }} />
+    <Navbar expand="lg" bg="dark" variant="dark" className="shadow-sm border-bottom border-primary sticky-top py-0" style={{ minHeight: 64 }}>
+      <Container fluid className="px-3 px-lg-4">
+        <Navbar.Brand as={Link} href="/comunidad" className="d-flex flex-shrink-0 align-items-center">
+          <Image src="/logo-jj-2025.png" alt="JJ Circuito Cultural Logo" width={48} height={48} className="me-2" style={{ objectFit: 'contain', boxShadow: '0 0 24px #0ff6', borderRadius: "100%" }} />
           <span className="fw-bold fs-5 d-none d-sm-inline brand-full">
             <span>CIRCUITO CULTURAL</span>
             <span className="ms-2 text-info">JJ</span>
           </span>
-        </Link>
-        <button className="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-          <ul className="navbar-nav mb-2 mb-lg-0 d-flex align-items-center gap-lg-2">
-            <li className="nav-item">
-              <Link className="nav-link" href="/comunidad">Comunidad</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" href="/eventos">Eventos</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" href="/tienda">Tienda</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" href="/contacto">Contacto</Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbarNav" className="ms-2" />
+        <Navbar.Collapse id="navbarNav" className="justify-content-end">
+          <Nav className="mb-2 mb-lg-0 d-flex align-items-center gap-lg-2">
+            <Nav.Link as={Link} href="/comunidad">Comunidad</Nav.Link>
+            <Nav.Link as={Link} href="/eventos">Eventos</Nav.Link>
+            <Nav.Link as={Link} href="/tienda">Tienda</Nav.Link>
+            <Nav.Link as={Link} href="/contacto">Contacto</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
