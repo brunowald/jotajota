@@ -1,9 +1,8 @@
 "use client";
 import { useState } from "react";
 
-export default function SingleContribution() {
+export default function SingleContribution({ unicavezOptions }: { unicavezOptions: { price: string, color: string, tipo: string, url: string }[] }) {
   const [showOptions, setShowOptions] = useState(false);
-  const amounts = [2000, 5000, 10000, 20000, 50000];
   const [selected, setSelected] = useState<number|null>(null);
   return (
     <div className="text-center border-top pt-3 mb-3">
@@ -15,14 +14,16 @@ export default function SingleContribution() {
         <div>
           <p className="mb-2 text-muted">Elegí un monto para tu aporte único:</p>
           <div className="d-flex flex-wrap justify-content-center gap-2 mb-3">
-            {amounts.map((amt) => (
-              <button
-                key={amt}
-                className={`btn btn-outline-info fw-bold px-3 py-2${selected===amt ? ' active' : ''}`}
-                onClick={() => setSelected(amt)}
+            {unicavezOptions.map((opt, idx) => (
+              <a
+                key={idx}
+                href={opt.url}
+                className={`btn btn-outline-info fw-bold px-3 py-2${selected===idx ? ' active' : ''}`}
+                onClick={() => setSelected(idx)}
+                style={{ textDecoration: "none" }}
               >
-                ${amt.toLocaleString("es-AR")}
-              </button>
+                {opt.price}
+              </a>
             ))}
           </div>
           <div>
