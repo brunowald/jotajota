@@ -1,5 +1,5 @@
 import Image from "next/image";
-import LogoBiblioteca from ".`/Logo_biblioteca_transparente.png";
+import LogoBiblioteca from "./Logo_biblioteca_transparente.png";
 import { FaMapMarkerAlt, FaPhoneAlt, FaInstagram, FaEnvelope, FaPaintBrush, FaFire, FaUtensils, FaBirthdayCake, FaCalendarPlus } from "react-icons/fa";
 import { FaTicketSimple } from "react-icons/fa6";
 import styles from "./contacto.module.scss";
