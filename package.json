@@ -29,6 +29,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
     "@slicemachine/adapter-next": "^0.3.80",
+    "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^22.13.0",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
