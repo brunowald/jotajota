@@ -1,6 +1,7 @@
 import Image from "next/image";
 import LogoBiblioteca from "./Logo_biblioteca_transparente.png";
-import { FaMapMarkerAlt, FaPhoneAlt, FaInstagram, FaEnvelope, FaPaintBrush, FaFire, FaUtensils, FaBirthdayCake, FaCalendarPlus } from "react-icons/fa";
+import { FaMapMarkerAlt, FaInstagram, FaEnvelope, FaPaintBrush, FaFire, FaUtensils, FaBirthdayCake, FaCalendarPlus } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa6";
 import { FaTicketSimple } from "react-icons/fa6";
 import styles from "./contacto.module.scss";
 import PageTitle from "../components/PageTitle";
@@ -46,15 +47,17 @@ export default function ContactoPage() {
                               className={styles["contact-item"]}
                               data-aos="fade-up"
                               data-aos-delay="200"
-                              href="tel:+541149613547"
+                              href="https://wa.me/5491162141129"
+                              target="_blank"
+                              rel="noopener noreferrer"
                               style={{ textDecoration: 'none' }}
                             >
                               <div className={styles["contact-icon"]}>
-                                <FaPhoneAlt color="#fff" />
+                                <FaWhatsapp color="#fff" />
                               </div>
                               <div className={styles["contact-details"]}>
-                                <h5>Teléfono</h5>
-                                <p>+54 11 4961-3547</p>
+                                <h5>WhatsApp</h5>
+                                <p>+54 9 11 6214-1129</p>
                               </div>
                             </a>
 
