@@ -30,6 +30,46 @@
 				"credits": null,
 				"__TYPE__": "ImageContent",
 				"thumbnails": {}
+			},
+			"day": {
+				"__TYPE__": "FieldContent",
+				"type": "Date",
+				"value": "2019-02-19"
+			},
+			"hour": {
+				"__TYPE__": "FieldContent",
+				"value": "sudden",
+				"type": "Text"
+			},
+			"hour_end": {
+				"__TYPE__": "FieldContent",
+				"value": "fourth",
+				"type": "Text"
+			},
+			"categoria": {
+				"__TYPE__": "FieldContent",
+				"value": "suddenly",
+				"type": "Text"
+			},
+			"descripcion": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Incididunt aute enim et culpa nisi anim amet consequat amet commodo. Nulla laborum amet sint ad cillum ad mollit in ea aliquip Lorem reprehenderit."
+						}
+					}
+				]
+			},
+			"more": {
+				"key": "ee73d8b7-f816-4f3e-92a5-d62ac3b7a89f",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://prismic.io",
+					"text": "suddenly"
+				}
 			}
 		},
 		"items": []
