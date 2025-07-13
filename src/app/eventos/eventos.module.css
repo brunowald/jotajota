@@ -16,8 +16,9 @@
 }
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, 350px); /* Cambio a auto-fill para alineación natural */
   gap: 32px;
+  /* Removido justify-content: center para alineación desde la izquierda */
 }
 .card {
   background: #fff;
@@ -27,15 +28,18 @@
   display: flex;
   flex-direction: column;
   transition: transform 0.2s;
+  height: 500px; /* Altura fija para todas las tarjetas */
+  width: 350px; /* Ancho fijo para todas las tarjetas */
 }
 .card:hover {
   transform: translateY(-4px) scale(1.02);
 }
 .imageWrapper {
   width: 100%;
-  aspect-ratio: 16/9;
+  height: 200px; /* Altura fija para la imagen */
   overflow: hidden;
   background: #eee;
+  flex-shrink: 0; /* Evita que la imagen se comprima */
 }
 .image {
   width: 100%;
@@ -48,15 +52,22 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-height: 0; /* Permite que el contenido se ajuste */
 }
 .title {
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 12px;
+  line-height: 1.3;
 }
 .desc {
   color: #444;
   margin-bottom: 20px;
+  flex: 1; /* Toma el espacio disponible */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limita a 3 líneas */
+  -webkit-box-orient: vertical;
 }
 .button {
   display: inline-block;
@@ -67,6 +78,8 @@
   text-decoration: none;
   font-weight: 500;
   transition: background 0.2s;
+  align-self: flex-start; /* Alinea el botón a la izquierda */
+  margin-top: auto; /* Empuja el botón hacia abajo */
 }
 .button:hover {
   background: #e6007a;
