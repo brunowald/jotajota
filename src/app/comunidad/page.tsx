@@ -34,16 +34,6 @@ export default function CommunityPage() {
                 ¡Asociate a JJ Circuito Cultural!
               </p>
             </section>
-            <section className="mb-4">
-              <h3 className="h6 fw-bold mb-3">CATEGORÍAS CULTURALES</h3>
-              <div className="d-flex flex-wrap gap-2">
-                <span className="badge rounded-pill bg-danger bg-opacity-25 border border-danger text-danger px-3 py-2 d-flex align-items-center"><FaTheaterMasks className="me-2" />Teatro</span>
-                <span className="badge rounded-pill bg-info bg-opacity-25 border border-info text-info px-3 py-2 d-flex align-items-center"><FaMusic className="me-2" />Música</span>
-                <span className="badge rounded-pill bg-primary bg-opacity-25 border border-primary text-primary px-3 py-2 d-flex align-items-center"><FaPaintBrush className="me-2" />Arte</span>
-                <span className="badge rounded-pill bg-warning bg-opacity-25 border border-warning text-warning px-3 py-2 d-flex align-items-center"><FaDumbbell className="me-2" />Danza</span>
-                <span className="badge rounded-pill bg-purple bg-opacity-25 border border-purple text-purple px-3 py-2 d-flex align-items-center"><FaFilm className="me-2" />Cine</span>
-              </div>
-            </section>
           </div>
           <div className="col-lg-6">
             <div className="card shadow-lg border-primary h-100">
@@ -56,32 +46,6 @@ export default function CommunityPage() {
           </div>
         </div>
       </section>
-      {/* Cultural Showcase Section */}
-      {/*
-      <section className="bg-dark border-top border-primary py-5">
-        <div className="container">
-          <h3 className="text-center text-info mb-5 display-6">NUESTRO UNIVERSO CULTURAL</h3>
-          <div className="row justify-content-center g-4">
-            {[
-              { name: 'TEATRO', color: 'danger', icon: <FaTheaterMasks /> },
-              { name: 'MÚSICA', color: 'info', icon: <FaMusic /> },
-              { name: 'ARTE', color: 'primary', icon: <FaPaintBrush /> },
-              { name: 'DANZA', color: 'warning', icon: <FaDumbbell /> },
-              { name: 'CINE', color: 'purple', icon: <FaFilm /> },
-              { name: 'CULTURA', color: 'secondary', icon: <FaUsers /> },
-              { name: 'EVENTOS', color: 'pink', icon: <FaHandshake /> }
-            ].map((category, index) => (
-              <div key={index} className="col-6 col-md-3 col-lg-2 d-flex justify-content-center">
-                <div className={`d-flex flex-column align-items-center justify-content-center rounded-4 border border-${category.color} bg-${category.color} bg-opacity-10 p-3 w-100`} style={{ minWidth: 100, minHeight: 100 }}>
-                  <span className="fs-2 mb-1">{category.icon}</span>
-                  <span className={`fw-bold text-${category.color} text-center`}>{category.name}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      */}
     </main>
   );
 }
