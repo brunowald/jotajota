@@ -36,6 +36,15 @@
           "label": "Texto",
           "placeholder": ""
         }
+      },
+      "tipo": {
+        "type": "Select",
+        "config": {
+          "label": "Tipo",
+          "placeholder": "",
+          "options": ["Mensual", "Anual", "Unica"],
+          "default_value": "Mensual"
+        }
       }
     }
   }

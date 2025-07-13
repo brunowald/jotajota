@@ -47,6 +47,7 @@ export default async function Comunidad() {
               }}
             >
               {link.data.texto}
+              {link.data.tipo}
             </a>
           ))}
         </div>

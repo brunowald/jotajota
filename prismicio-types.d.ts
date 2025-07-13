@@ -210,6 +210,18 @@ interface MpLinkDocumentData {
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   texto: prismic.KeyTextField;
+
+  /**
+   * Tipo field in *Link de Mercado Pago*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **Default Value**: Mensual
+   * - **API ID Path**: mp_link.tipo
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  tipo: prismic.SelectField<"Mensual" | "Anual" | "Unica", "filled">;
 }
 
 /**
