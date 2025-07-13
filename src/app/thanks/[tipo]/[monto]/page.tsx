@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 export default function ThanksPage() {
   const params = useParams();
   return (
-    <main className="min-vh-100 d-flex flex-column justify-content-center align-items-center bg-light">
+    <div>
       <div className="text-center">
         <h1 className="display-2 fw-bold text-success mb-4">¡Gracias!</h1>
         {params?.tipo && params?.monto && (
@@ -17,6 +17,6 @@ export default function ThanksPage() {
           </div>
         )}
       </div>
-    </main>
+    </div>
   );
 }

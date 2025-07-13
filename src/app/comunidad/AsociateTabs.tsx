@@ -19,7 +19,7 @@ export default function AsociateTabs({ mensualOptions, anualOptions }: { mensual
               style={{ color: "inherit" }}
             >
               <div className={`fs-4 fw-bold text-${opt.color}`}>{opt.price}</div>
-              <div className="text-muted small">
+              <div className="text-light small">
                 {opt.tipo === "Mensual" && "Por mes"}
                 {opt.tipo === "Anual" && "Por año"}
               </div>

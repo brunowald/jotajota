@@ -1,9 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import Link from "next/link";
+
 import { createClient } from "@/prismicio";
 import { PrismicImage, PrismicRichText } from "@prismicio/react";
-import Link from "next/link";
-import styles from "./eventos.module.css";
 import type { ImageField, RichTextField } from "@prismicio/client";
+
+import styles from "./eventos.module.scss";
+import PageTitle from "../components/PageTitle";
 
 // Tipar el evento según el modelo de Prismic
 interface EventDoc {
@@ -52,6 +54,8 @@ function groupByDay(events: EventDoc[]): GroupedEvents {
   return groups;
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function EventosPage() {
   const client = createClient();
   const events = (await client.getAllByType("events")) as EventDoc[];
@@ -79,11 +83,15 @@ export default async function EventosPage() {
   });
 
   return (
-    <main className={styles.bg}>
-      <div className={styles.container}>
-        <h1 className={styles.heading}>Eventos</h1>
+    <div>
+      <div className="container">
+        <div className="row justify-content-center mb-5">
+          <div className="col-12 text-center">
+            <PageTitle>Eventos</PageTitle>
+          </div>
+        </div>
         {sortedDays.length === 0 ? (
-          <p style={{ textAlign: "center", fontSize: "1.2rem", color: "#666" }}>
+          <p style={{ textAlign: "center", fontSize: "1.2rem", color: "var(--bs-text-muted)" }}>
             No hay eventos programados próximamente.
           </p>
         ) : (
@@ -93,7 +101,8 @@ export default async function EventosPage() {
                 fontSize: "1.3rem",
                 fontWeight: 700,
                 margin: "32px 0 24px 0",
-                textTransform: "capitalize"
+                textTransform: "capitalize",
+                color: "var(--bs-primary)"
               }}>{day}</h2>
               <div className={styles.grid}>
                 {grouped[day].map((event, idx) => (
@@ -138,6 +147,6 @@ export default async function EventosPage() {
           ))
         )}
       </div>
-    </main>
+    </div>
   );
-} 
+}

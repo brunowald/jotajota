@@ -1,0 +1,88 @@
+// Navigation styles (moved from contacto)
+.custom-navbar {
+  background: rgba(15, 15, 35, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--bs-border-color);
+  padding: 1rem 0;
+  transition: all 0.3s ease;
+}
+
+.custom-navbar.scrolled {
+  background: rgba(15, 15, 35, 0.98);
+  padding: 0.5rem 0;
+}
+
+.logo-circle {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--bs-primary), var(--bs-secondary));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-circle::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: logoShine 3s linear infinite;
+}
+
+@keyframes logoShine {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+.brand-text {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: white;
+}
+
+.brand-accent {
+  color: var(--bs-primary);
+}
+
+.nav-link {
+  color: var(--bs-gray) !important;
+  font-weight: 500;
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  position: relative;
+  background: none !important;
+}
+
+.nav-link:hover,
+.nav-link.active,
+.active.nav-link {
+  color: var(--bs-primary) !important;
+  background: rgba(var(--bs-primary-rgb), 0.1) !important;
+  transform: translateY(-2px);
+  transition:
+    color 0.3s,
+    background 0.3s,
+    transform 0.3s;
+}
+
+.brand-break {
+  display: none;
+}

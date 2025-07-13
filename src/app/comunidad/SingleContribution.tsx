@@ -7,7 +7,7 @@ export default function SingleContribution({ unicavezOptions }: { unicavezOption
   return (
     <div className="text-center border-top pt-3 mb-3">
       {!showOptions ? (
-        <button className="btn btn-warning px-4 fw-bold text-dark" onClick={() => setShowOptions(true)}>
+        <button className="btn btn-warning px-4 fw-bold text-light" onClick={() => setShowOptions(true)}>
           Hacer aporte único
         </button>
       ) : (

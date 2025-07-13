@@ -83,12 +83,6 @@
   transform: translateY(-2px);
 }
 
-/* Main Content */
-.main-content {
-  padding-top: 120px;
-  padding-bottom: 60px;
-}
-
 /* Page Title */
 .page-title {
   font-size: 4rem;
@@ -176,7 +170,7 @@
 .pulse-dot {
   width: 12px;
   height: 12px;
-  background: var(--bs-success-color);
+  background: var(--bs-success);
   border-radius: 50%;
   animation: pulse 2s infinite;
 }
@@ -519,7 +513,7 @@
     90deg,
     var(--bs-primary),
     var(--bs-secondary),
-    var(--bs-accent)
+    var(--accent-color)
   );
 }
 
@@ -539,7 +533,7 @@
   transform: translateX(-50%);
   width: 80px;
   height: 3px;
-  background: linear-gradient(90deg, var(--bs-primary), var(--bs-accent));
+  background: linear-gradient(90deg, var(--bs-primary), var(--accent-color));
   border-radius: 2px;
 }
 

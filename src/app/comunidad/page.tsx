@@ -1,3 +1,6 @@
+
+export const dynamic = "force-dynamic";
+
 import AsociateTabs from "./AsociateTabs";
 import SingleContribution from "./SingleContribution";
 import { createClient } from "@/prismicio";
@@ -40,7 +43,7 @@ export default async function CommunityPage() {
     }));
 
   return (
-    <main className="bg-dark text-white min-vh-100 position-relative overflow-hidden">
+    <div>
       {/* Hero Section */}
       <section className="container py-5">
         <div className="row align-items-center g-5">
@@ -51,10 +54,6 @@ export default async function CommunityPage() {
             <section className="mb-4">
               <p className="lead mb-2">
                 JJ Circuito Cultural es un espacio independiente y autogestivo que, desde el barrio de Balvanera, banca una programación diversa, comprometida y bien plantada en el arte y la cultura.
-              </p>
-              <p className="mb-3">
-                Este 2025 redoblamos la apuesta: abrimos un nuevo estudio y seguimos armando contenidos que nacen de la fuerza de nuestra comunidad.<br/>
-                Pero para que todo esto siga creciendo, necesitamos sumar <span className="fw-bold text-warning">10 mil nuevas personas asociadas</span> que nos ayuden a sostener el proyecto.
               </p>
               <p className="mb-3">
                 Con tu aporte mensual colaborás con los gastos del día a día y hacés posible que sigamos generando ciclos, talleres, residencias, exposiciones y encuentros que hacen del JJ un espacio vivo y necesario.
@@ -76,6 +75,6 @@ export default async function CommunityPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

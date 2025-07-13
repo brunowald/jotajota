@@ -1,16 +1,16 @@
-
-import { FaMapMarkerAlt, FaPhoneAlt, FaInstagram, FaEnvelope, FaFacebookF, FaTwitter, FaYoutube, FaMusic, FaCompactDisc, FaCalendarPlus, FaPaintBrush, FaFire, FaUtensils, FaBirthdayCake } from "react-icons/fa";
+import Image from "next/image";
+import { FaMapMarkerAlt, FaPhoneAlt, FaInstagram, FaEnvelope, FaPaintBrush, FaFire, FaUtensils, FaBirthdayCake, FaCalendarPlus } from "react-icons/fa";
 import { FaTicketSimple } from "react-icons/fa6";
 import styles from "./contacto.module.scss";
+import PageTitle from "../components/PageTitle";
 
 export default function ContactoPage() {
   return (
-    <main className={styles["main-content"]}>
+    <div>
         <div className="container">
             <div className="row justify-content-center mb-5">
                 <div className="col-12 text-center">
-                    <h1 className={styles["page-title"]}>Contacto</h1>
-                    <div className={styles["title-underline"]}></div>
+                    <PageTitle>Contacto</PageTitle>
                 </div>
             </div>
 
@@ -98,7 +98,7 @@ export default function ContactoPage() {
                     <div className={styles["map-container"] + " h-100"} data-aos="fade-left" data-aos-delay="500">
                         <div className={styles["map-overlay"]}>
                             <div className={styles["map-info"]}>
-                                <h4>Encuéntranos</h4>
+                                <h4>Encontranos</h4>
                                 <p>Jean Jaurés 347, Buenos Aires</p>
                             </div>
                         </div>
@@ -124,7 +124,7 @@ export default function ContactoPage() {
                             <div className="col-md-12">
                                 <div className={styles["link-card"]}>
                                     <div className="bg-light rounded">
-                                        <img src="/Logo_biblioteca_transparente.png" alt="Logo Biblioteca" style={{ width: 60, height: 60, objectFit: 'contain' }} />
+                                        <Image src="/Logo_biblioteca_transparente.png" alt="Logo Biblioteca" style={{ width: 60, height: 60, objectFit: 'contain' }} />
                                     </div>
                                     <div className={styles["link-content"]}>
                                         <h5>Biblioteca Popular MD&S</h5>
@@ -199,6 +199,6 @@ export default function ContactoPage() {
                 </div>
             </div>
         </div>
-    </main>
+    </div>
   );
 }
