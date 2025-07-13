@@ -185,7 +185,7 @@ export default function ContactoPage() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-6">
+                            <div className="col-md-6">
                                 <div className={styles["link-card"] + " " + styles["menu-card"]}>
                                     <div className={styles["link-icon"]}><FaUtensils /></div>
                                     <div className={styles["link-content"]}>
