@@ -26,6 +26,54 @@
             "constraint": {},
             "thumbnails": []
           }
+        },
+        "day": {
+          "type": "Date",
+          "config": {
+            "label": "Día",
+            "placeholder": "Día del evento"
+          }
+        },
+        "hour": {
+          "type": "Text",
+          "config": {
+            "label": "Hora",
+            "placeholder": "Horario del evento"
+          }
+        },
+        "hour_end": {
+          "type": "Text",
+          "config": {
+            "label": "Hora de fin",
+            "placeholder": "Horario de finalización (opcional)"
+          }
+        },
+        "categoria": {
+          "type": "Text",
+          "config": {
+            "label": "Categoría",
+            "placeholder": "Categoría del evento"
+          }
+        },
+        "descripcion": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Descripción",
+            "placeholder": "Descripción del evento",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "more": {
+          "type": "Link",
+          "config": {
+            "label": "Más info",
+            "placeholder": "Más info (Link)",
+            "select": null,
+            "allowTargetBlank": true,
+            "allowText": true,
+            "repeat": false
+          }
         }
       },
       "items": {}
