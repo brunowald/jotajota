@@ -1,7 +1,7 @@
 import { createClient } from "@/prismicio";
 import { PrismicImage, PrismicRichText } from "@prismicio/react";
 import styles from "./eventos.module.css";
-import { Content } from "@prismicio/client";
+import Link from "next/link";
 
 // Tipar el evento según el modelo de Prismic
 interface EventDoc {

@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { Navbar, Nav, Container } from "react-bootstrap";
 
 export default function JJNavbar() {
@@ -7,7 +8,7 @@ export default function JJNavbar() {
     <Navbar expand="lg" bg="dark" variant="dark" className="shadow-sm border-bottom border-primary sticky-top py-0" style={{ minHeight: 64 }}>
       <Container fluid className="px-3 px-lg-4">
         <Navbar.Brand as={Link} href="/comunidad" className="d-flex flex-shrink-0 align-items-center">
-          <img src="/logo-jj-2025.png" alt="JJ Circuito Cultural Logo" width={48} height={48} className="me-2" style={{ objectFit: 'contain', boxShadow: '0 0 24px #0ff6', borderRadius: "100%" }} />
+          <Image src="/logo-jj-2025.png" alt="JJ Circuito Cultural Logo" width={48} height={48} className="me-2" style={{ objectFit: 'contain', boxShadow: '0 0 24px #0ff6', borderRadius: "100%" }} />
           <span className="fw-bold fs-5 d-none d-sm-inline brand-full">
             <span>CIRCUITO CULTURAL</span>
             <span className="ms-2 text-info">JJ</span>
