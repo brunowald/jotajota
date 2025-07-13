@@ -3,15 +3,15 @@ import { createClient } from "@/prismicio";
 import { PrismicImage, PrismicRichText } from "@prismicio/react";
 import Link from "next/link";
 import styles from "./eventos.module.css";
-import Link from "next/link";
+import type { ImageField, RichTextField } from "@prismicio/client";
 
 // Tipar el evento según el modelo de Prismic
 interface EventDoc {
   id: string;
   data: {
     title?: string;
-    image?: any;
-    descripcion?: any;
+    image?: ImageField;
+    descripcion?: RichTextField;
     day?: string;
     hour?: string;
     hour_end?: string;
