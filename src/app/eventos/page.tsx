@@ -1,6 +1,5 @@
 import { createClient } from "@/prismicio";
 import { PrismicImage, PrismicRichText } from "@prismicio/react";
-import Link from "next/link";
 import styles from "./eventos.module.css";
 import { Content } from "@prismicio/client";
 

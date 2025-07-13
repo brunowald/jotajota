@@ -188,6 +188,40 @@ interface MpLinkDocumentData {
    * - **Documentation**: https://prismic.io/docs/fields/link
    */
   link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+
+  /**
+   * Importe field in *Link de Mercado Pago*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: *None*
+   * - **API ID Path**: mp_link.importe
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/number
+   */
+  importe: prismic.NumberField;
+
+  /**
+   * Texto field in *Link de Mercado Pago*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: mp_link.texto
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  texto: prismic.KeyTextField;
+
+  /**
+   * Tipo field in *Link de Mercado Pago*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **Default Value**: Mensual
+   * - **API ID Path**: mp_link.tipo
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  tipo: prismic.SelectField<"Mensual" | "Anual" | "Unica", "filled">;
 }
 
 /**
