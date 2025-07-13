@@ -22,6 +22,29 @@
           "allowText": true,
           "repeat": false
         }
+      },
+      "importe": {
+        "type": "Number",
+        "config": {
+          "label": "Importe",
+          "placeholder": ""
+        }
+      },
+      "texto": {
+        "type": "Text",
+        "config": {
+          "label": "Texto",
+          "placeholder": ""
+        }
+      },
+      "tipo": {
+        "type": "Select",
+        "config": {
+          "label": "Tipo",
+          "placeholder": "",
+          "options": ["Mensual", "Anual", "Unica"],
+          "default_value": "Mensual"
+        }
       }
     }
   }
