@@ -1,0 +1,13 @@
+// Bootstrap variable overrides (replace with your logo's palette)
+$primary: #1e40af; // Example blue
+$info: #7c3aed; // Example purple
+$danger: #e11d48; // Example pink/red
+$warning: #f59e42; // Example amber
+$success: #22c55e; // Example green
+$secondary: #64748b; // Example slate/gray
+$dark: #18181b; // Example dark background
+
+// Optionally add more custom colors here
+
+// Import Bootstrap after variable overrides
+@import "bootstrap/scss/bootstrap";
