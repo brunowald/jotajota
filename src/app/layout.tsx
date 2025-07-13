@@ -1,6 +1,6 @@
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
-import "./bootstrap.custom.scss";
+import "./main.scss";
 import JJNavbar from "./components/JJNavbar";
 
 export default function RootLayout({
@@ -11,6 +11,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* prettier-ignore */}
+        {typeof window === 'undefined' && (
+          <>{'<!--\nEste sitio fue un regalo para una gran amiga de parte de su grupo nerd favorito. ¡Con cariño! <3 -->'}</>
+        )}
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>JJ Circuito Cultural</title>

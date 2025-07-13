@@ -1,13 +1,12 @@
-// Bootstrap variable overrides (replace with your logo's palette)
-$primary: #1e40af; // Example blue
-$info: #7c3aed; // Example purple
-$danger: #e11d48; // Example pink/red
-$warning: #f59e42; // Example amber
-$success: #22c55e; // Example green
-$secondary: #64748b; // Example slate/gray
-$dark: #18181b; // Example dark background
-
-// Optionally add more custom colors here
-
-// Import Bootstrap after variable overrides
-@import "bootstrap/scss/bootstrap";
+// Bootstrap variable overrides (JJ palette)
+$primary: #8b5cf6;
+$secondary: #a855f7;
+$accent: #c084fc;
+$dark: #0f0f23;
+$darker: #0a0a1a;
+$card-bg: #1a1a2e;
+$text-light: #e2e8f0;
+$text-muted: #94a3b8;
+$border-color: #2d3748;
+$success: #10b981;
+$warning: #f59e0b;

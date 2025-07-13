@@ -1,0 +1,90 @@
+@import "bootstrap.custom.scss";
+@import "bootstrap/scss/bootstrap";
+
+// Bootstrap recommends using the --bs-* variable names for theme colors and tokens
+:root {
+  --bs-primary: #{$primary};
+  --bs-secondary: #{$secondary};
+  --bs-accent: #{$accent};
+  --bs-dark: #{$dark};
+  --bs-darker: #{$darker};
+  --bs-card-bg: #{$card-bg};
+  --bs-text-light: #{$text-light};
+  --bs-text-muted: #{$text-muted};
+  --bs-border-color: #{$border-color};
+  --bs-success: #{$success};
+  --bs-warning: #{$warning};
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #{$dark} 0%, #{$darker} 100%);
+  color: $text-light;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(139, 92, 246, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(168, 85, 247, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 40%,
+      rgba(192, 132, 252, 0.05) 0%,
+      transparent 50%
+    );
+  z-index: -1;
+  animation: backgroundShift 20s ease-in-out infinite;
+}
+
+@keyframes backgroundShift {
+  0%,
+  100% {
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    transform: translateX(-10px) translateY(-10px);
+  }
+  50% {
+    transform: translateX(10px) translateY(10px);
+  }
+  75% {
+    transform: translateX(-5px) translateY(5px);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #{$darker};
+}
+
+::-webkit-scrollbar-thumb {
+  background: #{$primary};
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #{$secondary};
+}
