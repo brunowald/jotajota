@@ -119,6 +119,34 @@ interface EventsDocumentData {
 export type EventsDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<EventsDocumentData>, "events", Lang>;
 
+/**
+ * Content for Link de Mercado Pago documents
+ */
+interface MpLinkDocumentData {
+  /**
+   * Link field in *Link de Mercado Pago*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: Link para pagar
+   * - **API ID Path**: mp_link.link
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+}
+
+/**
+ * Link de Mercado Pago document from Prismic
+ *
+ * - **API ID**: `mp_link`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type MpLinkDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<MpLinkDocumentData>, "mp_link", Lang>;
+
 type PageDocumentDataSlicesSlice = EventSlice | RichTextSlice;
 
 /**
@@ -191,7 +219,7 @@ interface PageDocumentData {
 export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 
-export type AllDocumentTypes = EventsDocument | PageDocument;
+export type AllDocumentTypes = EventsDocument | MpLinkDocument | PageDocument;
 
 /**
  * Primary content in *Event → Default → Primary*
@@ -411,6 +439,8 @@ declare module "@prismicio/client" {
     export type {
       EventsDocument,
       EventsDocumentData,
+      MpLinkDocument,
+      MpLinkDocumentData,
       PageDocument,
       PageDocumentData,
       PageDocumentDataSlicesSlice,
