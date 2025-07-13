@@ -16,10 +16,12 @@ export default function RootLayout({
         <title>JJ Circuito Cultural</title>
         <meta name="description" content="JJ Circuito Cultural: Comunidad, eventos, arte y cultura en Buenos Aires. Sumate a la comunidad más grande de Latinoamérica." />
         <meta name="theme-color" content="#0cf" />
-        <link rel="icon" type="image/png" href="/logo-jj-2025.png" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="/logo-jj-2025.png" />
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://jjcircuitocultural.com.ar/" />
+        <meta property="og:url" content="https://jjcircuitocultural.com.ar/" />I
         <meta property="og:title" content="JJ Circuito Cultural" />
         <meta property="og:description" content="Comunidad, eventos, arte y cultura en Buenos Aires. Sumate a la comunidad más grande de Latinoamérica." />
         <meta property="og:image" content="/logo-jj-2025.png" />
