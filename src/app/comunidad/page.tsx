@@ -1,7 +1,44 @@
 import AsociateTabs from "./AsociateTabs";
 import SingleContribution from "./SingleContribution";
+import { createClient } from "@/prismicio";
+import { notFound } from "next/navigation";
 
-export default function CommunityPage() {
+export default async function CommunityPage() {
+  const client = createClient();
+  const mp_links = await client.getAllByType("mp_link").catch(() => notFound());
+  // Ordenar por Importe ASC
+  mp_links.sort((a, b) => {
+    const importeA = Number(a.data.importe);
+    const importeB = Number(b.data.importe);
+    return importeA - importeB;
+  });
+
+  // Separar por tipo
+  const mensualOptions = mp_links
+    .filter((link) => link.data.tipo === "Mensual")
+    .map((link) => ({
+      price: `$${Number(link.data.importe).toLocaleString()}`,
+      color: "primary",
+      tipo: link.data.tipo,
+      url: link.data.link?.text || "#"
+    }));
+  const anualOptions = mp_links
+    .filter((link) => link.data.tipo === "Anual")
+    .map((link) => ({
+      price: `$${Number(link.data.importe).toLocaleString()}`,
+      color: "primary",
+      tipo: link.data.tipo,
+      url: link.data.link?.text || "#"
+    }));
+  const unicavezOptions = mp_links
+    .filter((link) => link.data.tipo === "Unica")
+    .map((link) => ({
+      price: `$${Number(link.data.importe).toLocaleString()}`,
+      color: "primary",
+      tipo: link.data.tipo,
+      url: link.data.link?.text || "#"
+    }));
+
   return (
     <main className="bg-dark text-white min-vh-100 position-relative overflow-hidden">
       {/* Hero Section */}
@@ -32,8 +69,8 @@ export default function CommunityPage() {
             <div className="card shadow-lg border-primary h-100">
               <div className="card-body d-flex flex-column justify-content-between">
                 <h3 className="h5 text-center text-info mb-4">ASOCIATE</h3>
-                <AsociateTabs />
-                <SingleContribution />
+                <AsociateTabs mensualOptions={mensualOptions} anualOptions={anualOptions} />
+                <SingleContribution unicavezOptions={unicavezOptions} />
               </div>
             </div>
           </div>

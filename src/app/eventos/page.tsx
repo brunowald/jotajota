@@ -1,17 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createClient } from "@/prismicio";
 import { PrismicImage, PrismicRichText } from "@prismicio/react";
-import styles from "./eventos.module.css";
 import Link from "next/link";
+import styles from "./eventos.module.css";
+import type { ImageField, RichTextField } from "@prismicio/client";
 
 // Tipar el evento según el modelo de Prismic
 interface EventDoc {
   id: string;
   data: {
     title?: string;
-    image?: any;
-    descripcion?: any;
+    image?: ImageField;
+    descripcion?: RichTextField;
     day?: string;
+    hour?: string;
+    hour_end?: string;
+    categoria?: string;
     more?: { url?: string };
   };
 }
@@ -22,6 +26,12 @@ function parseLocalDate(dateString?: string): Date | null {
   if (!dateString) return null;
   const [year, month, day] = dateString.split("-").map(Number);
   return new Date(year, month - 1, day);
+}
+
+function formatTimeRange(hour?: string, hourEnd?: string): string {
+  if (!hour) return "";
+  if (!hourEnd) return `${hour}hs`;
+  return `Inicio ${hour}hs - Fin ${hourEnd}hs`;
 }
 
 function groupByDay(events: EventDoc[]): GroupedEvents {
@@ -92,13 +102,21 @@ export default async function EventosPage() {
                       <PrismicImage field={event.data.image} className={styles.image} />
                     </div>
                     <div className={styles.content}>
+                      {event.data.categoria && (
+                        <span className={styles.category}>{event.data.categoria}</span>
+                      )}
                       <h2 className={styles.title}>{event.data.title}</h2>
+                      {event.data.hour && (
+                        <p className={styles.time}>
+                          {formatTimeRange(event.data.hour, event.data.hour_end)}
+                        </p>
+                      )}
                       {event.data.descripcion && (
                         <PrismicRichText field={event.data.descripcion} components={{
                           paragraph: ({ children }) => <p className={styles.desc}>{children}</p>
                         }} />
                       )}
-                      {event.data.more?.url && (
+                      {event.data.more?.url ? (
                         <Link
                           href={event.data.more.url}
                           className={styles.button}
@@ -107,6 +125,10 @@ export default async function EventosPage() {
                         >
                           Más info
                         </Link>
+                      ) : (
+                        <button className={`${styles.button} ${styles.buttonDisabled}`} disabled>
+                          Más info
+                        </button>
                       )}
                     </div>
                   </div>
