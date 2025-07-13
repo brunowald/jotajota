@@ -1,4 +1,4 @@
-import { FaMapMarkerAlt, FaPhoneAlt, FaInstagram, FaGlobe, FaEnvelope } from "react-icons/fa";
+import { FaMapMarkerAlt, FaPhoneAlt, FaInstagram, FaEnvelope } from "react-icons/fa";
 
 export default function ContactoPage() {
   return (

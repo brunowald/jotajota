@@ -1,6 +1,5 @@
 import { createClient } from "@/prismicio";
 import { PrismicImage, PrismicRichText } from "@prismicio/react";
-import Link from "next/link";
 import styles from "./eventos.module.css";
 
 export default async function EventosPage() {
@@ -23,17 +22,7 @@ export default async function EventosPage() {
                   <PrismicRichText field={event.data.descripcion} components={{
                     paragraph: ({ children }) => <p className={styles.desc}>{children}</p>
                   }} />
-                )}
-                {event.data.more?.url && (
-                  <Link
-                    href={event.data.more.url}
-                    className={styles.button}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Más info
-                  </Link>
-                )}
+                )}~
               </div>
             </div>
           ))}
