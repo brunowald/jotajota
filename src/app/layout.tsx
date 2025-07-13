@@ -1,5 +1,7 @@
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
+import "./bootstrap.custom.scss";
+import JJNavbar from "./components/JJNavbar";
 
 export default function RootLayout({
   children,
@@ -8,7 +10,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <JJNavbar />
+        {children}
+      </body>
       <PrismicPreview repositoryName={repositoryName} />
     </html>
   );
