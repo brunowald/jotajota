@@ -54,11 +54,28 @@
   justify-content: space-between;
   min-height: 0; /* Permite que el contenido se ajuste */
 }
+.category {
+  display: inline-block;
+  background: #e6007a;
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 12px;
+  align-self: flex-start;
+}
 .title {
   font-size: 1.5rem;
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   line-height: 1.3;
+}
+.time {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+  font-weight: 500;
 }
 .desc {
   color: #444;
@@ -80,7 +97,17 @@
   transition: background 0.2s;
   align-self: flex-start; /* Alinea el botón a la izquierda */
   margin-top: auto; /* Empuja el botón hacia abajo */
+  border: none;
+  cursor: pointer;
 }
 .button:hover {
   background: #e6007a;
+}
+.buttonDisabled {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+.buttonDisabled:hover {
+  background: #ccc;
 } 
