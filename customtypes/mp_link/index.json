@@ -22,6 +22,20 @@
           "allowText": true,
           "repeat": false
         }
+      },
+      "importe": {
+        "type": "Number",
+        "config": {
+          "label": "Importe",
+          "placeholder": ""
+        }
+      },
+      "texto": {
+        "type": "Text",
+        "config": {
+          "label": "Texto",
+          "placeholder": ""
+        }
       }
     }
   }
