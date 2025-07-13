@@ -1,4 +1,5 @@
 import Image from "next/image";
+import LogoBiblioteca from ".`/Logo_biblioteca_transparente.png";
 import { FaMapMarkerAlt, FaPhoneAlt, FaInstagram, FaEnvelope, FaPaintBrush, FaFire, FaUtensils, FaBirthdayCake, FaCalendarPlus } from "react-icons/fa";
 import { FaTicketSimple } from "react-icons/fa6";
 import styles from "./contacto.module.scss";
@@ -124,7 +125,7 @@ export default function ContactoPage() {
                             <div className="col-md-12">
                                 <div className={styles["link-card"]}>
                                     <div className="bg-light rounded">
-                                        <Image src="/Logo_biblioteca_transparente.png" alt="Logo Biblioteca" style={{ width: 60, height: 60, objectFit: 'contain' }} />
+                                        <Image src={LogoBiblioteca} alt="Logo Biblioteca" style={{ width: 60, height: 60, objectFit: 'contain' }} />
                                     </div>
                                     <div className={styles["link-content"]}>
                                         <h5>Biblioteca Popular MD&S</h5>
