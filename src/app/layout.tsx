@@ -2,6 +2,7 @@ import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
 import "./bootstrap.custom.scss";
 import JJNavbar from "./components/JJNavbar";
+import "./components/bootstrap.client";
 
 export default function RootLayout({
   children,
