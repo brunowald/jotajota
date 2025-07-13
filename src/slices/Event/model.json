@@ -19,6 +19,15 @@
             "placeholder": ""
           }
         },
+        "descripcion": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Descripción",
+            "placeholder": "Descripción del evento",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
         "image": {
           "type": "Image",
           "config": {
@@ -53,15 +62,6 @@
           "config": {
             "label": "Categoría",
             "placeholder": "Categoría del evento"
-          }
-        },
-        "descripcion": {
-          "type": "StructuredText",
-          "config": {
-            "label": "Descripción",
-            "placeholder": "Descripción del evento",
-            "allowTargetBlank": true,
-            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
           }
         },
         "more": {
