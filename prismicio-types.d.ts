@@ -85,7 +85,7 @@ interface EventsDocumentData {
   image: prismic.ImageField<never>;
 
   /**
-   * Titulo field in *Events*
+   * Título field in *Events*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
@@ -94,6 +94,17 @@ interface EventsDocumentData {
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   title: prismic.KeyTextField;
+
+  /**
+   * Descripción field in *Events*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Descripción del evento
+   * - **API ID Path**: events.descripcion
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  descripcion: prismic.RichTextField;
 }
 
 /**
@@ -205,6 +216,66 @@ export interface EventSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   image: prismic.ImageField<never>;
+
+  /**
+   * Día field in *Event → Default → Primary*
+   *
+   * - **Field Type**: Date
+   * - **Placeholder**: Día del evento
+   * - **API ID Path**: event.default.primary.day
+   * - **Documentation**: https://prismic.io/docs/fields/date
+   */
+  day: prismic.DateField;
+
+  /**
+   * Hora field in *Event → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Horario del evento
+   * - **API ID Path**: event.default.primary.hour
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  hour: prismic.KeyTextField;
+
+  /**
+   * Hora de fin field in *Event → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Horario de finalización (opcional)
+   * - **API ID Path**: event.default.primary.hour_end
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  hour_end: prismic.KeyTextField;
+
+  /**
+   * Categoría field in *Event → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Categoría del evento
+   * - **API ID Path**: event.default.primary.categoria
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  categoria: prismic.KeyTextField;
+
+  /**
+   * Descripción field in *Event → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Descripción del evento
+   * - **API ID Path**: event.default.primary.descripcion
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  descripcion: prismic.RichTextField;
+
+  /**
+   * Más info field in *Event → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: Más info (Link)
+   * - **API ID Path**: event.default.primary.more
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  more: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
 }
 
 /**
