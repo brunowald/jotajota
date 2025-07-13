@@ -101,7 +101,7 @@ export default async function EventosPage() {
                 fontSize: "1.3rem",
                 fontWeight: 700,
                 margin: "32px 0 24px 0",
-                textTransform: "capitalize",
+                textTransform: "uppercase",
                 color: "var(--bs-primary)"
               }}>{day}</h2>
               <div className={styles.grid}>
