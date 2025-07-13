@@ -1,5 +1,6 @@
 import { FaUsers, FaMusic, FaTheaterMasks, FaPaintBrush, FaFilm, FaDumbbell, FaHandshake } from "react-icons/fa";
 import AsociateTabs from "./AsociateTabs";
+import SingleContribution from "./SingleContribution";
 
 export default function CommunityPage() {
   return (
@@ -49,12 +50,7 @@ export default function CommunityPage() {
               <div className="card-body d-flex flex-column justify-content-between">
                 <h3 className="h5 text-center text-info mb-4">ASOCIATE</h3>
                 <AsociateTabs />
-                <div className="text-center border-top pt-3 mb-3">
-                  <p className="mb-2 text-muted">
-                    Si querés aportar <span className="fw-semibold text-warning">por única vez</span>
-                  </p>
-                  <button className="btn btn-warning">HACÉ CLICK ACÁ</button>
-                </div>
+                <SingleContribution />
               </div>
             </div>
           </div>
