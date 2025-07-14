@@ -11,8 +11,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* prettier-ignore */}
-        <>{'<!--\nEste sitio fue un regalo para una gran amiga de parte de su grupo nerd favorito. ¡Con cariño! <3 -->'}</>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>JJ Circuito Cultural</title>
@@ -43,6 +41,9 @@ export default function RootLayout({
         <meta name="twitter:image" content="/logo-jj-2025.png" />
       </head>
       <body>
+        {/* prettier-ignore */}
+        <>{'<!--\nEste sitio fue un regalo para una gran amiga de parte de su grupo nerd favorito. ¡Con cariño! <3 -->'}</>
+       
         <JJNavbar />
         <main className="main-content">{children}</main>
       </body>
