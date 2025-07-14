@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "../contacto/contacto.module.scss";
 
 interface PageTitleProps {
