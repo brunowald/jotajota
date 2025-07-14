@@ -17,6 +17,8 @@ interface EventDoc {
   };
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function EventosPage() {
   const client = createClient();
   const events = (await client.getAllByType("events", { fetchOptions: { cache: "no-store" } })) as EventDoc[];
