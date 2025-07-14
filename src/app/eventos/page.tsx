@@ -65,12 +65,11 @@ function groupByDay(events: EventDoc[]): GroupedEvents {
 }
 
 export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function EventosPage() {
   const client = createClient();
   const events = (await client.getAllByType("events")) as EventDoc[];
-  
-  console.log("Eventos:", events);
 
   // Filtrar eventos futuros (hoy en adelante)
   const today = new Date();
@@ -91,8 +90,8 @@ export default async function EventosPage() {
     // Parsear fechas para comparar correctamente
     const dateA = a !== "Sin fecha" ? Date.parse(a) : 0;
     const dateB = b !== "Sin fecha" ? Date.parse(b) : 0;
-    return dateB - dateA;
-  });
+    return dateA - dateB; // Most recent first (descending)
+  }).reverse();
 
   return (
     <div>
