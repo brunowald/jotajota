@@ -64,12 +64,9 @@ function groupByDay(events: EventDoc[]): GroupedEvents {
   return groups;
 }
 
-export const dynamic = "force-dynamic";
-export const revalidate = 60;
-
 export default async function EventosPage() {
   const client = createClient();
-  const events = (await client.getAllByType("events")) as EventDoc[];
+  const events = (await client.getAllByType("events", { fetchOptions: { cache: "no-store" } })) as EventDoc[];
 
   // Filtrar eventos futuros (hoy en adelante)
   const today = new Date();
