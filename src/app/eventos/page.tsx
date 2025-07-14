@@ -24,10 +24,20 @@ interface EventDoc {
 
 type GroupedEvents = Record<string, EventDoc[]>;
 
-function parseLocalDate(dateString?: string): Date | null {
+function parseLocalDate(dateString?: string, timeString?: string): Date | null {
   if (!dateString) return null;
   const [year, month, day] = dateString.split("-").map(Number);
-  return new Date(year, month - 1, day);
+  let date;
+  if (timeString) {
+    // Accepts formats like "18:00" or "18:00:00"
+    const [hour, minute, second] = timeString.split(":").map(Number);
+    date = new Date(Date.UTC(year, month - 1, day, hour || 0, minute || 0, second || 0));
+  } else {
+    date = new Date(Date.UTC(year, month - 1, day));
+  }
+  // Convert to Argentina time (UTC-3)
+  date.setHours(date.getHours() - 3);
+  return date;
 }
 
 function formatTimeRange(hour?: string, hourEnd?: string): string {
@@ -59,6 +69,8 @@ export const dynamic = "force-dynamic";
 export default async function EventosPage() {
   const client = createClient();
   const events = (await client.getAllByType("events")) as EventDoc[];
+  
+  console.log("Eventos:", events);
 
   // Filtrar eventos futuros (hoy en adelante)
   const today = new Date();
