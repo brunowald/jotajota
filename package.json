@@ -11,7 +11,8 @@
     "start": "next start",
     "lint": "next lint",
     "slicemachine": "start-slicemachine",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "update-gallery": "node scripts/update-gallery-images.js"
   },
   "dependencies": {
     "@prismicio/client": "^7.18.0",
