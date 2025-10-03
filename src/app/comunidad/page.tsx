@@ -46,9 +46,9 @@ export default async function CommunityPage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="container py-5">
+      <section className="container">
         <div className="row align-items-center g-5">
-          <div className="col-lg-6">
+          <div className="col-lg-6 mt-0">
             <header className="mb-4">
               <h1 className="display-3 fw-bold mb-2 text-white">
                 SUMATE AL{" "}
