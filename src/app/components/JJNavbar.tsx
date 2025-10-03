@@ -12,6 +12,7 @@ import { usePathname } from "next/navigation";
 const JJNavbar = () => {
   const navLinks = [
     { href: "/comunidad", label: "Comunidad" },
+    { href: "/quienes-somos", label: "¿Quiénes somos?" },
     { href: "/eventos", label: "Eventos" },
     { href: "/tienda", label: "Tienda" },
     { href: "/contacto", label: "Contacto" },

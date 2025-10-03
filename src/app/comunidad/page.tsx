@@ -46,34 +46,29 @@ export default async function CommunityPage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="container py-5">
+      <section className="container">
         <div className="row align-items-center g-5">
-          <div className="col-lg-6">
+          <div className="col-lg-6 mt-0">
             <header className="mb-4">
               <h1 className="display-3 fw-bold mb-2 text-white">
-                SUMATE AL{" "}
-                <span className="text-primary">CIRCUITO CULTURAL </span>
-                <span className="text-info">JJ</span>
+                SUMATE A LA{" "}
+                <span className="text-info">COMUNIDAD</span>{" "}
+                <span className="text-primary">JJ</span>
               </h1>
             </header>
             <section className="mb-4">
-              <p className="lead mb-2">
-                JJ Circuito Cultural es un espacio independiente y autogestivo
-                que, desde el barrio de Balvanera, banca una programación
-                diversa, comprometida y bien plantada en el arte y la cultura.
+              <p className="mb-2">
+                JJ Circuito Cultural es más que un espacio físico: es una propuesta político cultural comunitaria. Es una forma de ver y habitar el mundo. A contracorriente de las lógicas que nos gobiernan, queremos hacer de nuestro centro cultural una casa para todxs: trabajadorxs de nuestro espacio, artistas que vienen de afuera, vecinos, docentes, militantes barriales, entre tantos otros.
               </p>
               <p className="mb-3">
-                Con tu aporte mensual colaborás con los gastos del día a día y
-                hacés posible que sigamos generando ciclos, talleres,
-                residencias, exposiciones y encuentros que hacen del JJ un
-                espacio vivo y necesario.
+                JJ quiere ser un esfuerzo para repensar, inventar y crear lazos solidarios y comunitarios para que podamos vivir mejor en nuestra ciudad. Vos seguro ya sos parte de la comunidad de JJ y por eso leíste hasta acá. Ahora queremos pedirte -siempre algo pedimos- un aporte que nos va a servir para sobrevivir, sostener lo que hacemos y, lo más importante, crear cosas nuevas.
+              </p>
+              <p className="mb-3">
+                En estos momentos complejos, necesitamos más que nunca de la comunidad que en estos años de historia construimos. Así, vamos a poder sostener los talleres artísticos para infancias "Jota Jotita", los ciclos de cine, las propuestas de la Biblioteca Mañana de Sol, la programación musical, los cortes de calle, los festivales, entre algunas de las cosas que programamos de lunes a lunes, de enero a diciembre.
               </p>
               <p className="mb-2">
-                Creemos en la autogestión, en lo colectivo y en la cultura como
-                trinchera.
-                <br />
                 <span className="fw-bold text-info">
-                  Sumate, compartí, apoyá. El JJ también es tuyo.
+                  Ya sos parte de la comunidad de JJ. Haciendo un aporte económico mensual ayudás a que esta comunidad que integramos pueda seguir creciendo y existiendo.
                 </span>
               </p>
             </section>
