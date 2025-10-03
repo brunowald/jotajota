@@ -46,9 +46,9 @@ export default async function CommunityPage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="container py-5">
+      <section className="container">
         <div className="row align-items-center g-5">
-          <div className="col-lg-6">
+          <div className="col-lg-6 mt-0">
             <header className="mb-4">
               <h1 className="display-3 fw-bold mb-2 text-white">
                 SUMATE AL{" "}
@@ -58,7 +58,7 @@ export default async function CommunityPage() {
             </header>
             <section className="mb-4">
               <p className="lead mb-2">
-                JJ Circuito Cultural es un espacio independiente y auto-gestivo
+                JJ Circuito Cultural es un espacio independiente y autogestivo
                 que, desde el barrio de Balvanera, banca una programación
                 diversa, comprometida y bien plantada en el arte y la cultura.
               </p>
