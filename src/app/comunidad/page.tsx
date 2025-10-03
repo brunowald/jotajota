@@ -58,7 +58,7 @@ export default async function CommunityPage() {
             </header>
             <section className="mb-4">
               <p className="lead mb-2">
-                JJ Circuito Cultural es un espacio independiente y autogestivo
+                JJ Circuito Cultural es un espacio independiente y auto-gestivo
                 que, desde el barrio de Balvanera, banca una programación
                 diversa, comprometida y bien plantada en el arte y la cultura.
               </p>
