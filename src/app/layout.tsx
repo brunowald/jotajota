@@ -24,7 +24,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/logo-jj-2025.png" />
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://jjcircuitocultural.com.ar/" />I
+        <meta property="og:url" content="https://jjcircuitocultural.com.ar/" />
         <meta property="og:title" content="JJ Circuito Cultural" />
         <meta
           property="og:description"
