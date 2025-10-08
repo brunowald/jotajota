@@ -373,11 +373,77 @@ export type ParagraphDocument<Lang extends string = string> =
     Lang
   >;
 
+/**
+ * Content for Párrafo Quienes Somos documents
+ */
+interface PharagraphQuienesSomosDocumentData {
+  /**
+   * Orden field in *Párrafo Quienes Somos*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: Orden
+   * - **API ID Path**: pharagraph_quienes_somos.order
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/number
+   */
+  order: prismic.NumberField;
+
+  /**
+   * Texto field in *Párrafo Quienes Somos*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Texto
+   * - **API ID Path**: pharagraph_quienes_somos.text
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  text: prismic.KeyTextField;
+
+  /**
+   * Color field in *Párrafo Quienes Somos*
+   *
+   * - **Field Type**: Color
+   * - **Placeholder**: Color
+   * - **API ID Path**: pharagraph_quienes_somos.color
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/color
+   */
+  color: prismic.ColorField;
+
+  /**
+   * Tamaño de fuente field in *Párrafo Quienes Somos*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: Tamaño de fuente
+   * - **API ID Path**: pharagraph_quienes_somos.font_size
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/number
+   */
+  font_size: prismic.NumberField;
+}
+
+/**
+ * Párrafo Quienes Somos document from Prismic
+ *
+ * - **API ID**: `pharagraph_quienes_somos`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type PharagraphQuienesSomosDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<PharagraphQuienesSomosDocumentData>,
+    "pharagraph_quienes_somos",
+    Lang
+  >;
+
 export type AllDocumentTypes =
   | EventsDocument
   | MpLinkDocument
   | PageDocument
-  | ParagraphDocument;
+  | ParagraphDocument
+  | PharagraphQuienesSomosDocument;
 
 /**
  * Primary content in *Event → Default → Primary*
@@ -604,6 +670,8 @@ declare module "@prismicio/client" {
       PageDocumentDataSlicesSlice,
       ParagraphDocument,
       ParagraphDocumentData,
+      PharagraphQuienesSomosDocument,
+      PharagraphQuienesSomosDocumentData,
       AllDocumentTypes,
       EventSlice,
       EventSliceDefaultPrimary,
