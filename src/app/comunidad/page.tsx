@@ -63,7 +63,11 @@ export default async function CommunityPage() {
             </header>
             <section className="mb-4">
               {paragraphs
-              .sort((a, b) => a.data.uid - b.data.uid)
+              .sort((a, b) => {
+                const orderA = a?.data?.order ?? 0;
+                const orderB = b?.data?.order ?? 0;
+                return orderA - orderB;
+              })
               .map((para, index) => (
                 <p key={index} className="mb-2">
                   {para.data.text}
