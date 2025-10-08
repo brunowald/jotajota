@@ -10,6 +10,11 @@ export default async function CommunityPage() {
   const mp_links = await client
     .getAllByType("mp_link", { fetchOptions: { cache: "no-store" } })
     .catch(() => notFound());
+
+  const paragraphs = await client
+    .getAllByType("paragraph", { fetchOptions: { cache: "no-store" } })
+    .catch(() => notFound());
+  
   // Ordenar por Importe ASC
   mp_links.sort((a, b) => {
     const importeA = Number(a.data.importe);
@@ -57,20 +62,11 @@ export default async function CommunityPage() {
               </h1>
             </header>
             <section className="mb-4">
-              <p className="mb-2">
-                JJ Circuito Cultural es más que un espacio físico: es una propuesta político cultural comunitaria. Es una forma de ver y habitar el mundo. A contracorriente de las lógicas que nos gobiernan, queremos hacer de nuestro centro cultural una casa para todxs: trabajadorxs de nuestro espacio, artistas que vienen de afuera, vecinos, docentes, militantes barriales, entre tantos otros.
-              </p>
-              <p className="mb-3">
-                JJ quiere ser un esfuerzo para repensar, inventar y crear lazos solidarios y comunitarios para que podamos vivir mejor en nuestra ciudad. Vos seguro ya sos parte de la comunidad de JJ y por eso leíste hasta acá. Ahora queremos pedirte -siempre algo pedimos- un aporte que nos va a servir para sobrevivir, sostener lo que hacemos y, lo más importante, crear cosas nuevas.
-              </p>
-              <p className="mb-3">
-                En estos momentos complejos, necesitamos más que nunca de la comunidad que en estos años de historia construimos. Así, vamos a poder sostener los talleres artísticos para infancias &quot;Jota Jotita&quot;, los ciclos de cine, las propuestas de la Biblioteca Mañana de Sol, la programación musical, los cortes de calle, los festivales, entre algunas de las cosas que programamos de lunes a lunes, de enero a diciembre.
-              </p>
-              <p className="mb-2">
-                <span className="fw-bold text-info">
-                  Ya sos parte de la comunidad de JJ. Haciendo un aporte económico mensual ayudás a que esta comunidad que integramos pueda seguir creciendo y existiendo.
-                </span>
-              </p>
+              {paragraphs.map((para, index) => (
+                <p key={index} className="mb-2">
+                  {para.data.text}
+                </p>
+              ))}
             </section>
           </div>
           <div className="col-lg-6">
