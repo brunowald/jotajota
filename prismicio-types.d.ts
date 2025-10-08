@@ -313,6 +313,17 @@ export type PageDocument<Lang extends string = string> =
  */
 interface ParagraphDocumentData {
   /**
+   * Orden field in *Parrafo*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: Orden
+   * - **API ID Path**: paragraph.order
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/number
+   */
+  order: prismic.NumberField;
+
+  /**
    * Texto field in *Parrafo*
    *
    * - **Field Type**: Text

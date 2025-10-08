@@ -13,6 +13,13 @@
           "placeholder": ""
         }
       },
+      "order": {
+        "type": "Number",
+        "config": {
+          "label": "Orden",
+          "placeholder": "Orden"
+        }
+      },
       "text": {
         "type": "Text",
         "config": {

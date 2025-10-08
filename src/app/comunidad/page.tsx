@@ -62,7 +62,9 @@ export default async function CommunityPage() {
               </h1>
             </header>
             <section className="mb-4">
-              {paragraphs.map((para, index) => (
+              {paragraphs
+              .sort((a, b) => a.data.uid - b.data.uid)
+              .map((para, index) => (
                 <p key={index} className="mb-2">
                   {para.data.text}
                 </p>
