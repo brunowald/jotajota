@@ -308,7 +308,65 @@ interface PageDocumentData {
 export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 
-export type AllDocumentTypes = EventsDocument | MpLinkDocument | PageDocument;
+/**
+ * Content for Parrafo documents
+ */
+interface ParagraphDocumentData {
+  /**
+   * Texto field in *Parrafo*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Texto
+   * - **API ID Path**: paragraph.text
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  text: prismic.KeyTextField;
+
+  /**
+   * Color field in *Parrafo*
+   *
+   * - **Field Type**: Color
+   * - **Placeholder**: Color
+   * - **API ID Path**: paragraph.color
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/color
+   */
+  color: prismic.ColorField;
+
+  /**
+   * Tamaño de fuente field in *Parrafo*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: Tamaño de fuente
+   * - **API ID Path**: paragraph.font_size
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/number
+   */
+  font_size: prismic.NumberField;
+}
+
+/**
+ * Parrafo document from Prismic
+ *
+ * - **API ID**: `paragraph`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ParagraphDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<ParagraphDocumentData>,
+    "paragraph",
+    Lang
+  >;
+
+export type AllDocumentTypes =
+  | EventsDocument
+  | MpLinkDocument
+  | PageDocument
+  | ParagraphDocument;
 
 /**
  * Primary content in *Event → Default → Primary*
@@ -533,6 +591,8 @@ declare module "@prismicio/client" {
       PageDocument,
       PageDocumentData,
       PageDocumentDataSlicesSlice,
+      ParagraphDocument,
+      ParagraphDocumentData,
       AllDocumentTypes,
       EventSlice,
       EventSliceDefaultPrimary,
