@@ -128,7 +128,7 @@ export default function EventList({ events }: { events: EventDoc[] }) {
                         paragraph: ({ children }) => <p className={styles.desc}>{children}</p>
                       }} />
                     )}
-                    {event.data.more?.url ? (
+                    {event.data.more?.url && (
                       <Link
                         href={event.data.more.url}
                         className={styles.button}
@@ -137,10 +137,6 @@ export default function EventList({ events }: { events: EventDoc[] }) {
                       >
                         Más info
                       </Link>
-                    ) : (
-                      <button className={`${styles.button} ${styles.buttonDisabled}`} disabled>
-                        Más info
-                      </button>
                     )}
                   </div>
                 </div>
