@@ -83,7 +83,7 @@ export default function ContactoPage() {
                               className={styles["contact-item"]}
                               data-aos="fade-up"
                               data-aos-delay="400"
-                              href="mailto:info@jjcircuitocultural.com.ar"
+                              href="mailto:jjcircuitocultural@gmail.com"
                               style={{ textDecoration: 'none' }}
                             >
                               <div className={styles["contact-icon"]}>
@@ -91,7 +91,7 @@ export default function ContactoPage() {
                               </div>
                               <div className={styles["contact-details"]}>
                                 <h5>Email</h5>
-                                <p>info@jjcircuitocultural.com.ar</p>
+                                <p>jjcircuitocultural@gmail.com</p>
                               </div>
                             </a>
                         </div>
