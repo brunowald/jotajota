@@ -48,8 +48,8 @@ const JJNavbar = () => {
             <Image src="/logo-jj-2025.png" alt="JJ Circuito Cultural Logo" width={40} height={40} style={{ objectFit: 'contain' }} />
           </span>
           <span className="fw-bold fs-5 d-none d-sm-inline brand-full">
-            <span className={styles["brand-text"]}>CIRCUITO CULTURAL</span>
             <span className={styles["brand-accent"] + " ms-2"}>JJ</span>
+            <span className={styles["brand-text"]}>CIRCUITO CULTURAL</span>
           </span>
         </Navbar.Brand>
         <Navbar.Toggle
