@@ -1,4 +1,4 @@
-import { FaStore, FaTicketAlt, FaUsers } from "react-icons/fa";
+import { FaStore } from "react-icons/fa";
 import Image from "next/image";
 import image from "./libro.jpg";
 
