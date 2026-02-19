@@ -438,7 +438,59 @@ export type PharagraphQuienesSomosDocument<Lang extends string = string> =
     Lang
   >;
 
+/**
+ * Content for Benefits documents
+ */
+interface BenefitsDocumentData {
+  /**
+   * Logo field in *Benefits*
+   *
+   * - **Field Type**: Image
+   * - **API ID Path**: benefits.logo
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  logo: prismic.ImageField<never>;
+
+  /**
+   * Title field in *Benefits*
+   *
+   * - **Field Type**: Text
+   * - **API ID Path**: benefits.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *Benefits*
+   *
+   * - **Field Type**: Rich Text
+   * - **API ID Path**: benefits.description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+}
+
+/**
+ * Benefits document from Prismic
+ *
+ * - **API ID**: `benefits`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type BenefitsDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<BenefitsDocumentData>,
+    "benefits",
+    Lang
+  >;
+
 export type AllDocumentTypes =
+  | BenefitsDocument
   | EventsDocument
   | MpLinkDocument
   | PageDocument
@@ -661,6 +713,8 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      BenefitsDocument,
+      BenefitsDocumentData,
       EventsDocument,
       EventsDocumentData,
       MpLinkDocument,
