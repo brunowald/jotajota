@@ -70,6 +70,60 @@ type ContentRelationshipFieldWithData<
 }[Exclude<TCustomType[number], string>["id"]];
 
 /**
+ * Content for Benefits documents
+ */
+interface BenefitsDocumentData {
+  /**
+   * Logo field in *Benefits*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: benefits.logo
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  logo: prismic.ImageField<never>;
+
+  /**
+   * Title field in *Benefits*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: benefits.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *Benefits*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Description of the benefit
+   * - **API ID Path**: benefits.description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+}
+
+/**
+ * Benefits document from Prismic
+ *
+ * - **API ID**: `benefits`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type BenefitsDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<BenefitsDocumentData>,
+    "benefits",
+    Lang
+  >;
+
+/**
  * Content for Events documents
  */
 interface EventsDocumentData {
@@ -439,53 +493,45 @@ export type PharagraphQuienesSomosDocument<Lang extends string = string> =
   >;
 
 /**
- * Content for Benefits documents
+ * Content for Socios Registro documents
  */
-interface BenefitsDocumentData {
+interface SociosRegistroDocumentData {
   /**
-   * Logo field in *Benefits*
-   *
-   * - **Field Type**: Image
-   * - **API ID Path**: benefits.logo
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  logo: prismic.ImageField<never>;
-
-  /**
-   * Title field in *Benefits*
+   * Título field in *Socios Registro*
    *
    * - **Field Type**: Text
-   * - **API ID Path**: benefits.title
+   * - **Placeholder**: *None*
+   * - **API ID Path**: socios_registro.titulo
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
-  title: prismic.KeyTextField;
+  titulo: prismic.KeyTextField;
 
   /**
-   * Description field in *Benefits*
+   * Listado field in *Socios Registro*
    *
-   * - **Field Type**: Rich Text
-   * - **API ID Path**: benefits.description
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: socios_registro.listado
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
-  description: prismic.RichTextField;
+  listado: prismic.KeyTextField;
 }
 
 /**
- * Benefits document from Prismic
+ * Socios Registro document from Prismic
  *
- * - **API ID**: `benefits`
- * - **Repeatable**: `true`
+ * - **API ID**: `socios_registro`
+ * - **Repeatable**: `false`
  * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
-export type BenefitsDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithUID<
-    Simplify<BenefitsDocumentData>,
-    "benefits",
+export type SociosRegistroDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<SociosRegistroDocumentData>,
+    "socios_registro",
     Lang
   >;
 
@@ -495,7 +541,8 @@ export type AllDocumentTypes =
   | MpLinkDocument
   | PageDocument
   | ParagraphDocument
-  | PharagraphQuienesSomosDocument;
+  | PharagraphQuienesSomosDocument
+  | SociosRegistroDocument;
 
 /**
  * Primary content in *Event → Default → Primary*
@@ -726,6 +773,8 @@ declare module "@prismicio/client" {
       ParagraphDocumentData,
       PharagraphQuienesSomosDocument,
       PharagraphQuienesSomosDocumentData,
+      SociosRegistroDocument,
+      SociosRegistroDocumentData,
       AllDocumentTypes,
       EventSlice,
       EventSliceDefaultPrimary,

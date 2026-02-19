@@ -94,6 +94,7 @@ export default function CredentialForm() {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [dni, setDni] = useState("");
+  const [email, setEmail] = useState("");
   const downloadCredential = useDownloadCredential();
 
   useEffect(() => {
@@ -178,6 +179,17 @@ export default function CredentialForm() {
             required
             maxLength={8}
             inputMode="numeric"
+          />
+        </div>
+        <div>
+          <label className="form-label text-light small">Email</label>
+          <input
+            type="email"
+            className="form-control form-control-lg bg-dark border-secondary text-light"
+            placeholder="tu@email.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </div>
         <button type="submit" className="btn btn-primary btn-lg mt-2">

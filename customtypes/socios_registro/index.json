@@ -1,0 +1,25 @@
+{
+  "format": "custom",
+  "id": "socios_registro",
+  "label": "Socios Registro",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "titulo": {
+        "type": "Text",
+        "config": {
+          "label": "Título",
+          "placeholder": ""
+        }
+      },
+      "listado": {
+        "type": "Text",
+        "config": {
+          "label": "Listado",
+          "placeholder": ""
+        }
+      }
+    }
+  }
+}
