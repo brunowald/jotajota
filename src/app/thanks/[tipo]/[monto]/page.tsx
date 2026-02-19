@@ -1,7 +1,9 @@
 "use client";
+import { Suspense } from "react";
 import { useParams } from "next/navigation";
 import styles from "./thanks.module.scss";
 import dynamic from "next/dynamic";
+import CredentialForm from "./CredentialForm";
 
 const Confetti = dynamic(() => import("./Confetti"), { ssr: false });
 
@@ -32,6 +34,9 @@ export default function ThanksPage() {
         Mientras tanto, seguinos en nuestras redes y enterate de todo lo que se viene.<br /><br />
         🙌 ¡Gracias por bancar la cultura independiente!
       </div>
+      <Suspense fallback={<div className="mt-5 p-4 text-muted text-center">Cargando…</div>}>
+        <CredentialForm />
+      </Suspense>
     </div>
   );
 }
