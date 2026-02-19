@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import AsociateTabs from "./AsociateTabs";
+import BenefitsList from "./BenefitsList";
 import SingleContribution from "./SingleContribution";
 import { createClient } from "@/prismicio";
 import { notFound } from "next/navigation";
@@ -14,6 +15,10 @@ export default async function CommunityPage() {
   const paragraphs = await client
     .getAllByType("paragraph", { fetchOptions: { cache: "no-store" } })
     .catch(() => notFound());
+
+  const benefits = await client
+    .getAllByType("benefits", { fetchOptions: { cache: "no-store" } })
+    .catch(() => []);
   
   // Ordenar por Importe ASC
   mp_links.sort((a, b) => {
@@ -89,6 +94,7 @@ export default async function CommunityPage() {
           </div>
         </div>
       </section>
+      <BenefitsList benefits={benefits} />
     </div>
   );
 }
