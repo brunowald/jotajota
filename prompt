@@ -1,0 +1,50 @@
+En la seccion de Tienda (/tienda) vamos a agregar otra seccion dentro de la tienda online. Actualmente solo se vende un libro llamado Breve Historia de lo imperceptible, pero habra una nueva parte
+  donde se puedan vender Locros (comida Argentina) y otras comidas/bebidas. Se debera usar buenas practicas de UX y un diseno atractivo, teniendo en cuenta que el libro pasa a un lugar secundario y lo
+  mas importante de la tienda en este momento sera la venta de Locros y bebidas.
+
+  La idea es poder seleccionar que se quiere comprar (y cuantos), seleccionar las personalizaciones y luego pagarlo. Una vez pagado, un mail le tiene que llegar al cliente con el codigo de pedido (6
+  digitos random alfanumericos - letras en mayuscula).
+
+  Vamos por partes:
+  - El locro puede tener 2 personalizaciones:
+  1) Con carne o vegano sin tacc
+  2) Con picante o sin picante
+  - Los pastelitos tienen una personalizacion: batata o membrillo
+
+  La tienda tiene los siguientes items:
+  - Promo 1: Nacional y Popular. Contiene 2 locros (se puede personalizar cada uno), un vino Kilka, 2 pastelitos (se puede personalizar cada uno). El precio de la promo es $48.330
+  - Promo 2: Solo para atrevidxs. Contiene 2 locros (se puede personalizar cada uno), 2 latas de Stella, 2 pastelitos (se puede personalizar cada uno). El precio de la promo es $45.900
+  - Promo 3: Los domingos en familia. Contiene 4 locros (se puede personalizar cada uno), 2 vinos Portillos, 4 pastelitos (se puede personalizar cada uno). El precio de la promo es $90.360
+  - Locro (se puede personalizar - el de carne sale $15.000 y el Vegano Sin Tacc sale $14.000)
+  - Pastelito (se puede personalizar - $2600 cada uno)
+  - Vino Kilka: $18500
+  - Vino Calia - Sin precio
+  - Stella: $7900
+  - Portillos: S15000
+  - Sin Alcohol: sin precio
+  - Michebol: Sin precio
+
+  Tener en cuenta que de todo se puede agregar al "carrito" (uno o mas) y por cada uno que se agregue se debe seleccionar las personalizaciones.
+
+  Entonces: se selecciona que comprar y cuanto de cada uno. Se seleccionan las personalizaciones y va apareciendo el "carrito" con todo lo seleccionado con el total abajo. Se hace click en Comprar. Si
+  falta alguna personalizacion se resaltan los faltantes. Una vez que se hace click en Iniciar Compra, se llena el formulario de la compra:
+  - Nombre
+  - Apellido
+  - Telefono
+  - Mail
+  - Metodo de pago (transferencia o mercadopago online)
+  - Retiro por JJ / Envio a domicilio (Solo CABA). En caso de seleccionar envio a domicilio aparecera un campo para indicar la direccion.
+  - Observaciones
+
+  Una vez que se hace click en Finalizar Compra, pasa lo siguiente:
+  - Si el metodo de pago es Mercadopago online, se redirigira a la pagina de mercadopago para pagarles el total del carrito. Una vez pagado (en el success) se redirigira a la pagina de gracias por su
+  compra, indicando el codigo de pedido y tambien diciendo que le llegara un mail con los datos de la compra.
+  - Si el metodo de pago es transferencia, va directo a la pagina de success indicada en el paso anterior, pero tambien indicando los datos para la transferencia (CBU, Alias, Banco, etc), diciendo que
+  una vez transferido hay que enviar por mail o whatsapp el comprobante de pago indicando el codigo de pedido.
+
+  Para todas las compras debe llegarle un mail al cliente con el detalle del pedido y agradeciendo por su compra.
+  Todos los pedidos se deben guardar en un google spreadsheet: https://docs.google.com/spreadsheets/d/1FQobteXUOv_JQGz1MpElgnyh7m8ugUoEI-bYF4_oDuk/edit?usp=sharing (puedo darle accesso a todos para que
+  lo editen si ayuda a que sea mas sencillo).
+
+  No asumir nada. Preguntarme todo lo que se necesite o no este claro. No pasar por alto ningun requerimiento ni dato de los que escribi anteriormente. Podemos planificarlo y luego implementarlo si es
+  necesario. La UI/UX es muy importante. La cuenta de mercadopago a la que se le paga es la misma a la que la gente puede subscribirse en la pagina inicial.
