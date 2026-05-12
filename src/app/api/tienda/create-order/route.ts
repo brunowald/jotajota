@@ -14,6 +14,52 @@ function metodoPagoLabel(metodo: string): string {
   return metodo;
 }
 
+async function createMpPreference(
+  codigo: string,
+  form: { nombre: string; apellido: string; email: string; telefono: string },
+  total: number
+): Promise<string> {
+  const baseUrl = process.env.BASE_URL ?? "";
+  const res = await fetch("https://api.mercadopago.com/checkout/preferences", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.MP_ACCESS_TOKEN}`,
+    },
+    body: JSON.stringify({
+      items: [
+        {
+          id: codigo,
+          title: "Pedido Locrazo Patrio",
+          quantity: 1,
+          unit_price: total,
+          currency_id: "ARS",
+        },
+      ],
+      payer: {
+        name: form.nombre,
+        surname: form.apellido,
+        email: form.email,
+        phone: { number: form.telefono },
+      },
+      external_reference: codigo,
+      back_urls: {
+        success: `${baseUrl}/tienda/pedido-exitoso?codigo=${codigo}&metodo=mp`,
+        failure: `${baseUrl}/tienda/pedido-exitoso?codigo=${codigo}&metodo=mp&status=failure`,
+        pending: `${baseUrl}/tienda/pedido-exitoso?codigo=${codigo}&metodo=mp&status=pending`,
+      },
+      auto_return: "approved",
+      notification_url: `${baseUrl}/api/tienda/mp-webhook`,
+    }),
+  });
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(`MP preference creation failed: ${res.status} ${body}`);
+  }
+  const data = await res.json();
+  return data.init_point as string;
+}
+
 
 export async function POST(req: NextRequest) {
   try {
@@ -68,7 +114,11 @@ export async function POST(req: NextRequest) {
     });
 
     // TODO: send confirmation email via Resend
-    // TODO: redirect to MercadoPago preference URL when metodoPago === "mp"
+
+    if (form.metodoPago === "mp") {
+      const mpCheckoutUrl = await createMpPreference(codigo, form, total);
+      return NextResponse.json({ success: true, codigo, mpCheckoutUrl });
+    }
 
     return NextResponse.json({ success: true, codigo });
   } catch (e) {
