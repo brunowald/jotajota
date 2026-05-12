@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { type CartEntry, formatOrderItems, formatPrice } from "@/app/tienda/products";
+import { saveToSheet } from "@/lib/sheets";
 
 function generateOrderCode(): string {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -13,23 +14,6 @@ function metodoPagoLabel(metodo: string): string {
   return metodo;
 }
 
-function confirmadoDefault(metodo: string): string {
-  return metodo === "mp" ? "Sí" : "No";
-}
-
-async function saveToSheet(data: Record<string, string>) {
-  const url = process.env.APPS_SCRIPT_URL;
-  if (!url) return;
-  try {
-    await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-  } catch (e) {
-    console.error("[create-order] Apps Script error:", e);
-  }
-}
 
 export async function POST(req: NextRequest) {
   try {
@@ -79,7 +63,7 @@ export async function POST(req: NextRequest) {
       retiroEnvio: form.entrega === "envio" ? "Envío a domicilio" : "Retiro en JJ",
       direccionEnvio: form.entrega === "envio" ? form.direccion : "",
       observaciones: form.observaciones,
-      confirmado: confirmadoDefault(form.metodoPago),
+      confirmado: "No",
       retirado: "No",
     });
 
