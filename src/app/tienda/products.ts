@@ -205,8 +205,9 @@ export function isModalComplete(
   return product.customizations.every((c) => Boolean(values[c.id]));
 }
 
-export function getLocroPrice(tipo?: string): number {
-  return tipo === "vegano" ? 14000 : 15000;
+export function getLocroPrice(tipo?: string, picante?: string): number {
+  const base = tipo === "vegano" ? 14000 : 15000;
+  return picante === "con-picante" ? base + 1000 : base;
 }
 
 export function calculateTotal(
@@ -219,7 +220,8 @@ export function calculateTotal(
     const product = PRODUCTS.find((p) => p.id === entry.productId);
     if (!product) continue;
     if (product.category === "promo") total += product.price ?? 0;
-    else if (product.id === "locro") total += getLocroPrice(entry.customizations["tipo"]);
+    else if (product.id === "locro")
+      total += getLocroPrice(entry.customizations["tipo"], entry.customizations["picante"]);
     else if (product.id === "pastelito") total += 2600;
   }
   for (const product of PRODUCTS.filter(
