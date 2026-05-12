@@ -136,6 +136,12 @@ function CustomizationModal({
                     }}
                   >
                     {opt.label}
+                    {cust.id === "tipo" && opt.value === "carne" && (
+                      <span className="ms-1 text-warning" style={{ fontSize: "0.75rem" }}>$15.000</span>
+                    )}
+                    {cust.id === "tipo" && opt.value === "vegano" && (
+                      <span className="ms-1 text-warning" style={{ fontSize: "0.75rem" }}>$14.000</span>
+                    )}
                     {cust.id === "picante" && opt.value === "con-picante" && (
                       <span className="ms-1 text-warning" style={{ fontSize: "0.75rem" }}>+$1.000</span>
                     )}
