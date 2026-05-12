@@ -136,6 +136,9 @@ function CustomizationModal({
                     }}
                   >
                     {opt.label}
+                    {cust.id === "picante" && opt.value === "con-picante" && (
+                      <span className="ms-1 text-warning" style={{ fontSize: "0.75rem" }}>+$1.000</span>
+                    )}
                   </button>
                 ))}
               </div>
@@ -358,7 +361,7 @@ function ProductCard({
 
         <div className="mb-3">
           {product.id === "locro" ? (
-            <span className="text-info small">$14.000 – $15.000</span>
+            <span className="text-info small">$14.000 – $16.000</span>
           ) : unavailable ? (
             <span className="text-muted small fst-italic">Sin precio disponible</span>
           ) : (
@@ -450,7 +453,7 @@ function CartSummary({
 
             let price = 0;
             if (isPromo) price = product.price ?? 0;
-            else if (isLocro) price = getLocroPrice(entry.customizations["tipo"]);
+            else if (isLocro) price = getLocroPrice(entry.customizations["tipo"], entry.customizations["picante"]);
             else if (isPastelito) price = 2600;
 
             return (
