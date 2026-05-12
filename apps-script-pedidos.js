@@ -31,6 +31,19 @@ function doPost(e) {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     const sheet = ss.getActiveSheet();
 
+    if (data.action === "confirm") {
+      const lastRow = sheet.getLastRow();
+      for (let i = 2; i <= lastRow; i++) {
+        if (sheet.getRange(i, 1).getValue() === data.codigo) {
+          sheet.getRange(i, 13).setValue("Sí");
+          break;
+        }
+      }
+      return ContentService.createTextOutput(JSON.stringify({ success: true })).setMimeType(
+        ContentService.MimeType.JSON
+      );
+    }
+
     // Add headers if first row is empty
     if (sheet.getLastRow() === 0) {
       sheet.appendRow(SHEET_HEADERS);
