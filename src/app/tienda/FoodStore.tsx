@@ -708,7 +708,11 @@ export default function FoodStore() {
       });
       const data = await res.json();
       if (!data.success) throw new Error(data.error ?? "Error desconocido");
-      router.push(`/tienda/pedido-exitoso?codigo=${data.codigo}&metodo=${form.metodoPago}`);
+      if (data.mpCheckoutUrl) {
+        window.location.href = data.mpCheckoutUrl;
+      } else {
+        router.push(`/tienda/pedido-exitoso?codigo=${data.codigo}&metodo=${form.metodoPago}`);
+      }
     } catch {
       alert("Hubo un error al procesar tu pedido. Por favor intentá de nuevo.");
     } finally {
@@ -878,7 +882,7 @@ export default function FoodStore() {
                 <div className="row g-2">
                   {(
                     [
-                      { value: "mp", icon: "💳", label: "MercadoPago online", sub: "Próximamente", disabled: true },
+                      { value: "mp", icon: "💳", label: "MercadoPago online", sub: "Pago seguro · redirige a MercadoPago" },
                       { value: "transferencia", icon: "🏦", label: "Transferencia bancaria", sub: "CBU / Alias" },
                       { value: "retiro", icon: "🤝", label: "Al retirar", sub: "Pagás al momento del retiro" },
                     ] as const
@@ -887,22 +891,14 @@ export default function FoodStore() {
                       <div
                         className={`rounded-3 p-3 h-100 ${form.metodoPago === opt.value ? "border border-primary" : "border border-secondary"}`}
                         style={{
-                          cursor: "disabled" in opt && opt.disabled ? "not-allowed" : "pointer",
+                          cursor: "pointer",
                           background: form.metodoPago === opt.value ? "rgba(139,92,246,0.1)" : "transparent",
-                          opacity: "disabled" in opt && opt.disabled ? 0.5 : 1,
                           transition: "all 0.15s",
                         }}
-                        onClick={() => {
-                          if (!("disabled" in opt && opt.disabled))
-                            setForm((f) => ({ ...f, metodoPago: opt.value }));
-                        }}
+                        onClick={() => setForm((f) => ({ ...f, metodoPago: opt.value }))}
                       >
                         <div className="fw-bold text-light mb-1">{opt.icon} {opt.label}</div>
-                        <div className="text-secondary" style={{ fontSize: "0.75rem" }}>
-                          {"disabled" in opt && opt.disabled ? (
-                            <span className="badge bg-secondary">Próximamente</span>
-                          ) : opt.sub}
-                        </div>
+                        <div className="text-secondary" style={{ fontSize: "0.75rem" }}>{opt.sub}</div>
                       </div>
                     </div>
                   ))}
