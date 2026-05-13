@@ -157,7 +157,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "michebol",
-    name: "Michelob Ultra",
+    name: "Michelob",
     description: "Sin TACC · Lata",
     emoji: "🍺",
     category: "bebida",
