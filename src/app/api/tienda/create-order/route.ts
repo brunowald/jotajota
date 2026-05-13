@@ -50,6 +50,11 @@ async function createMpPreference(
       },
       auto_return: "approved",
       notification_url: `${baseUrl}/api/tienda/mp-webhook`,
+      payment_methods: {
+        excluded_payment_types: [],
+        excluded_payment_methods: [],
+        installments: 1,
+      },
     }),
   });
   if (!res.ok) {
