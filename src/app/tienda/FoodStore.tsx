@@ -460,7 +460,7 @@ function CartSummary({
             let price = 0;
             if (isPromo) price = product.price ?? 0;
             else if (isLocro) price = getLocroPrice(entry.customizations["tipo"], entry.customizations["picante"]);
-            else if (isPastelito) price = 2600;
+            else if (isPastelito) price = product.price ?? 0;
 
             return (
               <div key={entry.entryId} className="pb-3 border-bottom border-secondary">
@@ -888,7 +888,7 @@ export default function FoodStore() {
                 <div className="row g-2">
                   {(
                     [
-                      { value: "mp", icon: "💳", label: "MercadoPago online", sub: "Pago seguro · redirige a MercadoPago" },
+                      // { value: "mp", icon: "💳", label: "MercadoPago online", sub: "Pago seguro · redirige a MercadoPago" },
                       { value: "transferencia", icon: "🏦", label: "Transferencia bancaria", sub: "CBU / Alias" },
                       { value: "retiro", icon: "🤝", label: "Al retirar", sub: "Pagás al momento del retiro" },
                     ] as const
