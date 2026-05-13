@@ -96,7 +96,7 @@ function sendConfirmationEmail(data) {
     : "📍 Retiro en JJ — Jean Jaurés 347, CABA";
 
   const observacionesRow = data.observaciones
-    ? '<tr><td style="padding:6px 0;color:#6b7280;font-size:13px;">Observaciones</td><td style="padding:6px 0;font-size:13px;">' + data.observaciones + "</td></tr>"
+    ? '<tr><td style="padding:6px 0;color:#6b7280;font-size:13px;">Observaciones</td><td style="padding:6px 0;font-size:13px;color:#e5e7eb;">' + data.observaciones + "</td></tr>"
     : "";
 
   const htmlBody = `
