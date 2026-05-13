@@ -213,7 +213,7 @@ export function calculateTotal(
     if (product.category === "promo") total += product.price ?? 0;
     else if (product.id === "locro")
       total += getLocroPrice(entry.customizations["tipo"], entry.customizations["picante"]);
-    else if (product.id === "pastelito") total += 2600;
+    else if (product.id === "pastelito") total += product.price ?? 0;
   }
   for (const product of PRODUCTS.filter(
     (p) => p.category === "bebida" && p.available && p.price !== null
