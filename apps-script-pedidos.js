@@ -71,9 +71,7 @@ function doPost(e) {
       data.retirado,
     ]);
 
-    // Force total cell (column 8) as plain text so Sheets doesn't misread
-    // "$90.360" as the decimal number 90.36
-    sheet.getRange(sheet.getLastRow(), 8).setNumberFormat("@");
+    sheet.getRange(sheet.getLastRow(), 8).setNumberFormat("$ #,##0");
 
     sendConfirmationEmail(data);
 

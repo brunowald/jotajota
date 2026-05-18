@@ -3,7 +3,7 @@ const APPS_SCRIPT_URL =
   process.env.APPS_SCRIPT_URL ??
   "https://script.google.com/macros/s/AKfycbxU79XgSJx640tASUKBNonUskGt6W4hMREfFOajOdaEtl9LgZLTr6uwdR01oYetkzkM_g/exec";
 
-export async function saveToSheet(data: Record<string, string>): Promise<void> {
+export async function saveToSheet(data: Record<string, string | number>): Promise<void> {
   const url = APPS_SCRIPT_URL;
   if (!url) return;
   try {

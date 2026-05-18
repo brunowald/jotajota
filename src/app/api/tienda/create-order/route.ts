@@ -109,7 +109,7 @@ export async function POST(req: NextRequest) {
       telefono: form.telefono,
       email: form.email,
       items: formatOrderItems(entries, quantities),
-      total: formatPrice(total),
+      total: total,
       metodoPago: metodoPagoLabel(form.metodoPago),
       retiroEnvio: form.entrega === "envio" ? "Envío a domicilio" : "Retiro en JJ",
       direccionEnvio: form.entrega === "envio" ? form.direccion : "",
