@@ -1,7 +1,7 @@
 // TODO: move to env var APPS_SCRIPT_URL when production environment variables are available
 const APPS_SCRIPT_URL =
   process.env.APPS_SCRIPT_URL ??
-  "https://script.google.com/macros/s/AKfycbxU79XgSJx640tASUKBNonUskGt6W4hMREfFOajOdaEtl9LgZLTr6uwdR01oYetkzkM_g/exec";
+  "https://script.google.com/macros/s/AKfycbzeQS3d97t8X6VuKNOojLVwgT-fTUsjh3tuHEP2Q10b4bNiKuO5i9psj3f8TuFFpEnAmQ/exec";
 
 export async function saveToSheet(data: Record<string, string | number>): Promise<void> {
   const url = APPS_SCRIPT_URL;

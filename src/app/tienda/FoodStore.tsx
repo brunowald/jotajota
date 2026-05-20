@@ -31,6 +31,7 @@ type OrderForm = {
   metodoPago: "mp" | "transferencia" | "retiro";
   entrega: "retiro" | "envio";
   direccion: string;
+  diaRetiro: "domingo-24" | "lunes-25" | "";
   observaciones: string;
 };
 
@@ -103,6 +104,7 @@ function CustomizationModal({
       <Modal.Body style={{ background: "#1a1a2e" }}>
         {/* Individual item */}
         {!isPromo && product.customizations?.map((cust) => {
+          if (cust.id === "tacc" && values["tipo"] !== "vegano") return null;
           const missing = showErrors && !values[cust.id];
           return (
             <div key={cust.id} className="mb-4">
@@ -131,7 +133,9 @@ function CustomizationModal({
                     }`}
                     style={{ fontSize: "0.85rem" }}
                     onClick={() => {
-                      onValuesChange({ ...values, [cust.id]: opt.value });
+                      const next = { ...values, [cust.id]: opt.value };
+                      if (cust.id === "tipo" && opt.value === "carne") delete next["tacc"];
+                      onValuesChange(next);
                       setShowErrors(false);
                     }}
                   >
@@ -163,6 +167,7 @@ function CustomizationModal({
               >
                 <div className="fw-bold text-light mb-3">🍲 Locro {slot.index}</div>
                 {LOCRO_CUSTOMIZATIONS.map((cust) => {
+                  if (cust.id === "tacc" && slot.values["tipo"] !== "vegano") return null;
                   const missing = showErrors && !slot.values[cust.id];
                   return (
                     <div key={cust.id} className="mb-3">
@@ -192,6 +197,8 @@ function CustomizationModal({
                             style={{ fontSize: "0.82rem" }}
                             onClick={() => {
                               onPromoSlotChange(slot.slotId, cust.id, opt.value);
+                              if (cust.id === "tipo" && opt.value === "carne")
+                                onPromoSlotChange(slot.slotId, "tacc", "");
                               setShowErrors(false);
                             }}
                           >
@@ -440,7 +447,7 @@ function CartSummary({
   onRemove: (entryId: string) => void;
 }) {
   const bebidas = PRODUCTS.filter(
-    (p) => p.category === "bebida" && p.available && p.price !== null && (quantities[p.id] || 0) > 0
+    (p) => (p.category === "bebida" || (p.category === "comida" && !p.customizations?.length)) && p.available && p.price !== null && (quantities[p.id] || 0) > 0
   );
 
   return (
@@ -475,7 +482,9 @@ function CartSummary({
                       <div className="text-secondary mt-1" style={{ fontSize: "0.8rem" }}>
                         {isLocro && (
                           <>
-                            {entry.customizations["tipo"] === "vegano" ? "Vegano sin TACC" : "Con carne"}
+                            {entry.customizations["tipo"] === "vegano"
+                              ? `Vegano ${entry.customizations["tacc"] === "con-tacc" ? "con TACC" : "sin TACC"}`
+                              : "Con carne"}
                             {entry.customizations["picante"] === "con-picante" ? " · con picante 🌶️" : " · sin picante"}
                           </>
                         )}
@@ -489,7 +498,9 @@ function CartSummary({
                         {entry.promoSlots.filter((s) => s.type === "locro").map((s) => (
                           <li key={s.slotId} className="text-secondary" style={{ fontSize: "0.78rem" }}>
                             • Locro {s.index}:{" "}
-                            {s.values["tipo"] === "vegano" ? "Vegano sin TACC" : "Con carne"}
+                            {s.values["tipo"] === "vegano"
+                              ? `Vegano ${s.values["tacc"] === "con-tacc" ? "con TACC" : "sin TACC"}`
+                              : "Con carne"}
                             {s.values["picante"] === "con-picante" ? ", con picante 🌶️" : ", sin picante"}
                           </li>
                         ))}
@@ -591,6 +602,7 @@ export default function FoodStore() {
     metodoPago: "transferencia",
     entrega: "retiro",
     direccion: "",
+    diaRetiro: "",
     observaciones: "",
   });
   const [formErrors, setFormErrors] = useState<FormErrors>({});
@@ -699,6 +711,8 @@ export default function FoodStore() {
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errors.email = "Email inválido";
     if (form.entrega === "envio" && !form.direccion.trim())
       errors.direccion = "Ingresá la dirección de envío";
+    if (form.entrega === "retiro" && !form.diaRetiro)
+      errors.diaRetiro = "Seleccioná el día de retiro";
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -717,7 +731,7 @@ export default function FoodStore() {
       if (data.mpCheckoutUrl) {
         window.location.href = data.mpCheckoutUrl;
       } else {
-        router.push(`/tienda/pedido-exitoso?codigo=${data.codigo}&metodo=${form.metodoPago}`);
+        router.push(`/tienda/pedido-exitoso?codigo=${data.codigo}&metodo=${form.metodoPago}&entrega=${form.entrega}&diaRetiro=${form.diaRetiro}`);
       }
     } catch {
       alert("Hubo un error al procesar tu pedido. Por favor intentá de nuevo.");
@@ -938,6 +952,45 @@ export default function FoodStore() {
                   ))}
                 </div>
               </div>
+
+              {/* Día de retiro */}
+              {form.entrega === "retiro" && (
+                <div className="mb-4">
+                  <label className="form-label text-secondary small fw-bold mb-2">Día de retiro *</label>
+                  <div className="row g-2">
+                    {(
+                      [
+                        { value: "domingo-24", label: "Domingo 24 de Mayo", sub: "De 10:00 a 15:00 hs" },
+                        { value: "lunes-25", label: "Lunes 25 de Mayo", sub: "De 10:00 a 15:00 hs" },
+                      ] as const
+                    ).map((opt) => (
+                      <div className="col-sm-6" key={opt.value}>
+                        <div
+                          className={`rounded-3 p-3 h-100 ${
+                            form.diaRetiro === opt.value
+                              ? "border border-primary"
+                              : formErrors.diaRetiro
+                              ? "border border-danger"
+                              : "border border-secondary"
+                          }`}
+                          style={{
+                            cursor: "pointer",
+                            background: form.diaRetiro === opt.value ? "rgba(139,92,246,0.1)" : "transparent",
+                            transition: "all 0.15s",
+                          }}
+                          onClick={() => setForm((f) => ({ ...f, diaRetiro: opt.value }))}
+                        >
+                          <div className="fw-bold text-light mb-1">📅 {opt.label}</div>
+                          <div className="text-secondary" style={{ fontSize: "0.8rem" }}>{opt.sub}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  {formErrors.diaRetiro && (
+                    <div className="text-danger small mt-2">{formErrors.diaRetiro}</div>
+                  )}
+                </div>
+              )}
 
               {/* Dirección */}
               {form.entrega === "envio" && (

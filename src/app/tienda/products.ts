@@ -44,7 +44,15 @@ export const LOCRO_CUSTOMIZATIONS: CustomizationDef[] = [
     label: "Tipo",
     options: [
       { value: "carne", label: "Con carne" },
-      { value: "vegano", label: "Vegano sin TACC" },
+      { value: "vegano", label: "Vegano" },
+    ],
+  },
+  {
+    id: "tacc",
+    label: "TACC",
+    options: [
+      { value: "sin-tacc", label: "Sin TACC" },
+      { value: "con-tacc", label: "Con TACC" },
     ],
   },
   {
@@ -120,6 +128,24 @@ export const PRODUCTS: Product[] = [
     available: true,
   },
   {
+    id: "empanada-carne",
+    name: "Empanada de Carne Cortada a Cuchillo",
+    description: "",
+    emoji: "🥟",
+    category: "comida",
+    price: 3500,
+    available: true,
+  },
+  {
+    id: "empanada-champignon",
+    name: "Empanada de Champignon",
+    description: "",
+    emoji: "🍄",
+    category: "comida",
+    price: 3500,
+    available: true,
+  },
+  {
     id: "vino-kilka",
     name: "Vino Kilka",
     description: "",
@@ -178,6 +204,12 @@ export function createPromoSlots(product: Product): PromoSlot[] {
   return slots;
 }
 
+function isLocroComplete(values: Record<string, string>): boolean {
+  if (!values["tipo"] || !values["picante"]) return false;
+  if (values["tipo"] === "vegano" && !values["tacc"]) return false;
+  return true;
+}
+
 export function isModalComplete(
   productId: string,
   values: Record<string, string>,
@@ -187,12 +219,13 @@ export function isModalComplete(
   if (!product) return false;
   if (product.category === "promo") {
     return promoSlots.every((slot) => {
-      if (slot.type === "locro") return Boolean(slot.values["tipo"]) && Boolean(slot.values["picante"]);
+      if (slot.type === "locro") return isLocroComplete(slot.values);
       if (slot.type === "pastelito") return Boolean(slot.values["relleno"]);
       return true;
     });
   }
   if (!product.customizations?.length) return true;
+  if (product.id === "locro") return isLocroComplete(values);
   return product.customizations.every((c) => Boolean(values[c.id]));
 }
 
@@ -216,7 +249,7 @@ export function calculateTotal(
     else if (product.id === "pastelito") total += product.price ?? 0;
   }
   for (const product of PRODUCTS.filter(
-    (p) => p.category === "bebida" && p.available && p.price !== null
+    (p) => (p.category === "bebida" || (p.category === "comida" && !p.customizations?.length)) && p.available && p.price !== null
   )) {
     total += (product.price ?? 0) * (quantities[product.id] || 0);
   }
@@ -249,7 +282,8 @@ export function formatOrderItems(
       const locroStr = (entry.promoSlots ?? [])
         .filter((s) => s.type === "locro")
         .map((s) => {
-          const tipo = s.values["tipo"] === "vegano" ? "vegano sin TACC" : "con carne";
+          const tacc = s.values["tacc"] === "con-tacc" ? "con TACC" : "sin TACC";
+          const tipo = s.values["tipo"] === "vegano" ? `vegano ${tacc}` : "con carne";
           const picante = s.values["picante"] === "con-picante" ? "con picante" : "sin picante";
           return `Locro ${s.index}: ${tipo}, ${picante}`;
         })
@@ -260,7 +294,8 @@ export function formatOrderItems(
         .join(" / ");
       parts.push(`Promo ${product.name}: ${locroStr} / ${pasStr} / ${product.promoIncludes!.bebidaLabel}`);
     } else if (product.id === "locro") {
-      const tipo = entry.customizations["tipo"] === "vegano" ? "vegano sin TACC" : "con carne";
+      const tacc = entry.customizations["tacc"] === "con-tacc" ? "con TACC" : "sin TACC";
+      const tipo = entry.customizations["tipo"] === "vegano" ? `vegano ${tacc}` : "con carne";
       const picante = entry.customizations["picante"] === "con-picante" ? "con picante" : "sin picante";
       parts.push(`Locro: ${tipo}, ${picante}`);
     } else if (product.id === "pastelito") {
@@ -269,7 +304,7 @@ export function formatOrderItems(
   }
 
   for (const product of PRODUCTS.filter(
-    (p) => p.category === "bebida" && p.available && p.price !== null
+    (p) => (p.category === "bebida" || (p.category === "comida" && !p.customizations?.length)) && p.available && p.price !== null
   )) {
     const qty = quantities[product.id] || 0;
     if (qty > 0) parts.push(qty > 1 ? `${qty}x ${product.name}` : product.name);

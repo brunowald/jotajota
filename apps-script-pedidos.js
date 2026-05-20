@@ -93,9 +93,15 @@ function sendConfirmationEmail(data) {
     ? '<span style="color:#16a34a;font-weight:bold;">✅ Pagado</span>'
     : '<span style="color:#d97706;font-weight:bold;">⏳ Pendiente de pago</span> — ' + data.metodoPago;
 
+  const diaRetiroLabel = data.retiroEnvio && data.retiroEnvio.includes("Domingo")
+    ? "Domingo 24 de Mayo"
+    : data.retiroEnvio && data.retiroEnvio.includes("Lunes")
+    ? "Lunes 25 de Mayo"
+    : "Domingo 24 o Lunes 25 de Mayo";
+
   const entregaLabel = data.retiroEnvio === "Envío a domicilio"
-    ? "🚗 Envío a domicilio" + (data.direccionEnvio ? ": " + data.direccionEnvio : "")
-    : "📍 Retiro en JJ — Jean Jaurés 347, CABA";
+    ? "🚗 Envío a domicilio" + (data.direccionEnvio ? ": " + data.direccionEnvio : "") + "<br><span style=\"color:#9ca3af;font-size:12px;\">📅 Entrega el 25 de Mayo entre las 11:00 y las 13:30 hs</span>"
+    : "📍 Retiro en JJ — Jean Jaurés 347, CABA<br><span style=\"color:#9ca3af;font-size:12px;\">📅 " + diaRetiroLabel + " · 10:00 a 15:00 hs</span>";
 
   const observacionesRow = data.observaciones
     ? '<tr><td style="padding:6px 0;color:#6b7280;font-size:13px;">Observaciones</td><td style="padding:6px 0;font-size:13px;color:#e5e7eb;">' + data.observaciones + "</td></tr>"

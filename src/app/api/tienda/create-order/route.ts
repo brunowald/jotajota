@@ -85,6 +85,7 @@ export async function POST(req: NextRequest) {
         metodoPago: string;
         entrega: string;
         direccion: string;
+        diaRetiro: string;
         observaciones: string;
       };
       total: number;
@@ -111,7 +112,11 @@ export async function POST(req: NextRequest) {
       items: formatOrderItems(entries, quantities),
       total: total,
       metodoPago: metodoPagoLabel(form.metodoPago),
-      retiroEnvio: form.entrega === "envio" ? "Envío a domicilio" : "Retiro en JJ",
+      retiroEnvio: form.entrega === "envio"
+        ? "Envío a domicilio"
+        : form.diaRetiro === "domingo-24"
+        ? "Retiro en JJ — Domingo 24/5"
+        : "Retiro en JJ — Lunes 25/5",
       direccionEnvio: form.entrega === "envio" ? form.direccion : "",
       observaciones: form.observaciones,
       confirmado: "No",

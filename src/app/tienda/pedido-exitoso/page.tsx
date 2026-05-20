@@ -17,6 +17,8 @@ function PedidoExitosoContent() {
   const searchParams = useSearchParams();
   const codigo = searchParams.get("codigo") ?? "";
   const metodo = searchParams.get("metodo") ?? "transferencia";
+  const entrega = searchParams.get("entrega") ?? "retiro";
+  const diaRetiro = searchParams.get("diaRetiro") ?? "";
 
   const isTransferencia = metodo === "transferencia";
   const isRetiro = metodo === "retiro";
@@ -135,6 +137,28 @@ function PedidoExitosoContent() {
           </div>
         </div>
       )}
+
+      {/* Horarios de entrega/retiro */}
+      <div
+        className="card bg-dark border-info mb-4"
+      >
+        <div className="card-body">
+          <h5 className="text-info fw-bold mb-3">🗓️ Horarios</h5>
+          {entrega === "envio" ? (
+            <p className="text-light mb-0">
+              📦 Entrega a domicilio el <strong>25 de Mayo</strong> entre las <strong>11:00 y las 13:30 hs</strong>
+            </p>
+          ) : (
+            <p className="text-light mb-0">
+              📍 Retiro en JJ el{" "}
+              <strong>
+                {diaRetiro === "domingo-24" ? "Domingo 24" : diaRetiro === "lunes-25" ? "Lunes 25" : "Domingo 24 o Lunes 25"} de Mayo
+              </strong>{" "}
+              de <strong>10:00 a 15:00 hs</strong>
+            </p>
+          )}
+        </div>
+      </div>
 
       {/* Mail notice */}
       <div
