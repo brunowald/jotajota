@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { type CartEntry, formatOrderItems, formatPrice } from "@/app/tienda/products";
+import { type CartEntry, formatOrderItems } from "@/app/tienda/products";
 import { saveToSheet } from "@/lib/sheets";
 
 function generateOrderCode(): string {
