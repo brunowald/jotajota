@@ -151,8 +151,7 @@ function PedidoExitosoContent() {
           ) : (
             <p className="text-light mb-0">
               📍 Retiro en JJ el{" "}
-              <strong>
-                {diaRetiro === "domingo-24" ? "Domingo 24" : diaRetiro === "lunes-25" ? "Lunes 25" : "Domingo 24 o Lunes 25"} de Mayo
+              <strong> Lunes 25 de Mayo
               </strong>{" "}
               de <strong>10:00 a 15:00 hs</strong>
             </p>
