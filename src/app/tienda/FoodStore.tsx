@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { Modal } from "react-bootstrap";
 import {
   PRODUCTS,
-  LOCRO_CUSTOMIZATIONS,
+  LOCRO_CUSTOMIZATIONS, f
   PASTELITO_CUSTOMIZATIONS,
   type CartEntry,
   type PromoSlot,
@@ -960,7 +960,6 @@ export default function FoodStore() {
                   <div className="row g-2">
                     {(
                       [
-                        { value: "domingo-24", label: "Domingo 24 de Mayo", sub: "De 10:00 a 15:00 hs" },
                         { value: "lunes-25", label: "Lunes 25 de Mayo", sub: "De 10:00 a 15:00 hs" },
                       ] as const
                     ).map((opt) => (
