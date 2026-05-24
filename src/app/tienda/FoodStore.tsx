@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { Modal } from "react-bootstrap";
 import {
   PRODUCTS,
-  LOCRO_CUSTOMIZATIONS, f
+  LOCRO_CUSTOMIZATIONS,
   PASTELITO_CUSTOMIZATIONS,
   type CartEntry,
   type PromoSlot,
