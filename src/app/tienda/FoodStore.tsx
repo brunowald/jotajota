@@ -31,7 +31,7 @@ type OrderForm = {
   metodoPago: "mp" | "transferencia" | "retiro";
   entrega: "retiro" | "envio";
   direccion: string;
-  diaRetiro: "domingo-24" | "lunes-25" | "";
+  diaRetiro: "lunes-25" | "";
   observaciones: string;
 };
 
