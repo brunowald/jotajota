@@ -18,7 +18,6 @@ function PedidoExitosoContent() {
   const codigo = searchParams.get("codigo") ?? "";
   const metodo = searchParams.get("metodo") ?? "transferencia";
   const entrega = searchParams.get("entrega") ?? "retiro";
-  const diaRetiro = searchParams.get("diaRetiro") ?? "";
 
   const isTransferencia = metodo === "transferencia";
   const isRetiro = metodo === "retiro";
