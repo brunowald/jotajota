@@ -29,9 +29,9 @@ type OrderForm = {
   telefono: string;
   email: string;
   metodoPago: "mp" | "transferencia" | "retiro";
-  entrega: "retiro" | "envio";
+  entrega: "retiro" | "envio" | "comer-en-jj";
   direccion: string;
-  diaRetiro: "lunes-25" | "";
+  diaRetiro: "miercoles-8" | "jueves-9" | "";
   observaciones: string;
 };
 
@@ -362,6 +362,11 @@ function ProductCard({
             {product.description}
           </p>
         )}
+        {product.noDisponibleEnEvento && (
+          <span className="badge mb-2 align-self-center" style={{ background: "rgba(99,102,241,0.2)", color: "#a5b4fc", border: "1px solid rgba(99,102,241,0.4)", fontSize: "0.65rem" }}>
+            🚗 Solo retiro o delivery
+          </span>
+        )}
 
         {/* Promo includes */}
         {product.promoIncludes && (
@@ -441,7 +446,7 @@ function CartSummary({
 }: {
   entries: CartEntry[];
   quantities: Record<string, number>;
-  entrega: "retiro" | "envio";
+  entrega: "retiro" | "envio" | "comer-en-jj";
   total: number;
   onEdit: (entryId: string) => void;
   onRemove: (entryId: string) => void;
@@ -558,7 +563,7 @@ function CartSummary({
           {entrega === "envio" && (
             <div className="d-flex justify-content-between text-secondary pb-3 border-bottom border-secondary">
               <span>🚗 Envío a domicilio</span>
-              <span>{formatPrice(3000)}</span>
+              <span>{formatPrice(3500)}</span>
             </div>
           )}
 
@@ -607,6 +612,16 @@ export default function FoodStore() {
   });
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (form.entrega === "comer-en-jj") {
+      setQuantities((prev) => {
+        const next = { ...prev };
+        PRODUCTS.filter((p) => p.noDisponibleEnEvento).forEach((p) => { next[p.id] = 0; });
+        return next;
+      });
+    }
+  }, [form.entrega]);
 
   // ── Modal handlers ──────────────────────────────────────
 
@@ -712,7 +727,7 @@ export default function FoodStore() {
     if (form.entrega === "envio" && !form.direccion.trim())
       errors.direccion = "Ingresá la dirección de envío";
     if (form.entrega === "retiro" && !form.diaRetiro)
-      errors.diaRetiro = "Seleccioná el día de retiro";
+      errors.diaRetiro = "Seleccioná el día de retiro o envío";
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -731,7 +746,7 @@ export default function FoodStore() {
       if (data.mpCheckoutUrl) {
         window.location.href = data.mpCheckoutUrl;
       } else {
-        router.push(`/tienda/pedido-exitoso?codigo=${data.codigo}&metodo=${form.metodoPago}&entrega=${form.entrega}&diaRetiro=${form.diaRetiro}`);
+        router.push(`/tienda/pedido-exitoso?codigo=${data.codigo}&metodo=${form.metodoPago}&entrega=${form.entrega}&diaRetiro=${form.diaRetiro}&total=${cartTotal}`);
       }
     } catch {
       alert("Hubo un error al procesar tu pedido. Por favor intentá de nuevo.");
@@ -742,7 +757,9 @@ export default function FoodStore() {
 
   const promos = PRODUCTS.filter((p) => p.category === "promo");
   const comidas = PRODUCTS.filter((p) => p.category === "comida");
-  const bebidas = PRODUCTS.filter((p) => p.category === "bebida");
+  const bebidas = PRODUCTS.filter(
+    (p) => p.category === "bebida" && (!p.noDisponibleEnEvento || form.entrega !== "comer-en-jj")
+  );
 
   return (
     <div>
@@ -768,13 +785,13 @@ export default function FoodStore() {
         >
           <span style={{ color: "#f59e0b" }}>🗓️</span>
           <span className="fw-bold small" style={{ color: "#f59e0b", letterSpacing: 1 }}>
-            EVENTO ESPECIAL · 25 DE MAYO
+            EVENTO ESPECIAL · 9 DE JULIO
           </span>
         </div>
         <h2 className="display-5 fw-bold mb-2" style={{ color: "#fb923c" }}>
           🍲 LOCRAZO PATRIO
         </h2>
-        <p className="text-secondary mb-0">Retiro en Jean Jaurés 347 · Envíos a CABA</p>
+        <p className="text-secondary mb-0">Retiro · Envío a CABA · Comer en JJ el 9/7</p>
       </div>
 
       {/* PROMOS */}
@@ -932,10 +949,11 @@ export default function FoodStore() {
                   {(
                     [
                       { value: "retiro", icon: "📍", label: "Retiro en JJ", sub: "Jean Jaurés 347, CABA" },
-                      { value: "envio", icon: "🚗", label: "Envío a domicilio", sub: "Solo CABA · +$3.000" },
+                      { value: "envio", icon: "🚗", label: "Envío a domicilio (9/7)", sub: "Solo CABA · 10:30 a 13:30 hs · +$3.500" },
+                      { value: "comer-en-jj", icon: "🍽️", label: "Comer en JJ (9/7)", sub: "Jean Jaurés 347, CABA" },
                     ] as const
                   ).map((opt) => (
-                    <div className="col-sm-6" key={opt.value}>
+                    <div className="col-sm-4" key={opt.value}>
                       <div
                         className={`rounded-3 p-3 h-100 ${form.entrega === opt.value ? "border border-primary" : "border border-secondary"}`}
                         style={{
@@ -960,7 +978,8 @@ export default function FoodStore() {
                   <div className="row g-2">
                     {(
                       [
-                        { value: "lunes-25", label: "Lunes 25 de Mayo", sub: "De 10:00 a 15:00 hs" },
+                        { value: "miercoles-8", label: "Miércoles 8 de Julio", sub: "De 17:00 a 21:00 hs" },
+                        { value: "jueves-9", label: "Jueves 9 de Julio", sub: "De 10:30 a 14:30 hs" },
                       ] as const
                     ).map((opt) => (
                       <div className="col-sm-6" key={opt.value}>
@@ -1028,7 +1047,7 @@ export default function FoodStore() {
                 <div>
                   <div className="text-light fw-bold">Total a pagar</div>
                   {form.entrega === "envio" && (
-                    <div className="text-secondary" style={{ fontSize: "0.75rem" }}>Incluye $3.000 de envío</div>
+                    <div className="text-secondary" style={{ fontSize: "0.75rem" }}>Incluye $3.500 de envío</div>
                   )}
                 </div>
                 <span className="text-primary fw-bold fs-3">{formatPrice(cartTotal)}</span>

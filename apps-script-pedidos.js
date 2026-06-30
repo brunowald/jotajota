@@ -93,15 +93,15 @@ function sendConfirmationEmail(data) {
     ? '<span style="color:#16a34a;font-weight:bold;">✅ Pagado</span>'
     : '<span style="color:#d97706;font-weight:bold;">⏳ Pendiente de pago</span> — ' + data.metodoPago;
 
-  const diaRetiroLabel = data.retiroEnvio && data.retiroEnvio.includes("Domingo")
-    ? "Domingo 24 de Mayo"
-    : data.retiroEnvio && data.retiroEnvio.includes("Lunes")
-    ? "Lunes 25 de Mayo"
-    : "Domingo 24 o Lunes 25 de Mayo";
+  const diaRetiroLabel = data.retiroEnvio.includes("Miércoles")
+    ? "Miércoles 8 de Julio · 17:00 a 21:00 hs"
+    : "Jueves 9 de Julio · 10:30 a 14:30 hs";
 
   const entregaLabel = data.retiroEnvio === "Envío a domicilio"
-    ? "🚗 Envío a domicilio" + (data.direccionEnvio ? ": " + data.direccionEnvio : "") + "<br><span style=\"color:#9ca3af;font-size:12px;\">📅 Entrega el 25 de Mayo entre las 11:00 y las 13:30 hs</span>"
-    : "📍 Retiro en JJ — Jean Jaurés 347, CABA<br><span style=\"color:#9ca3af;font-size:12px;\">📅 " + diaRetiroLabel + " · 10:00 a 15:00 hs</span>";
+    ? "🚗 Envío a domicilio" + (data.direccionEnvio ? ": " + data.direccionEnvio : "") + "<br><span style=\"color:#9ca3af;font-size:12px;\">📅 Entrega el 9 de Julio entre las 10:30 y las 13:30 hs</span>"
+    : data.retiroEnvio === "Comer en JJ (9/7)"
+    ? "🍽️ Comer en JJ — Jean Jaurés 347, CABA<br><span style=\"color:#9ca3af;font-size:12px;\">📅 Jueves 9 de Julio</span>"
+    : "📍 Retiro en JJ — Jean Jaurés 347, CABA<br><span style=\"color:#9ca3af;font-size:12px;\">📅 " + diaRetiroLabel + "</span>";
 
   const observacionesRow = data.observaciones
     ? '<tr><td style="padding:6px 0;color:#6b7280;font-size:13px;">Observaciones</td><td style="padding:6px 0;font-size:13px;color:#e5e7eb;">' + data.observaciones + "</td></tr>"
@@ -121,7 +121,7 @@ function sendConfirmationEmail(data) {
           <td style="padding:32px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.1);">
             <div style="font-size:48px;margin-bottom:12px;">🍲</div>
             <h1 style="color:#fb923c;font-size:22px;margin:0 0 6px;">¡Gracias por tu pedido!</h1>
-            <p style="color:#9ca3af;margin:0;font-size:14px;">LOCRAZO PATRIO · 25 de Mayo</p>
+            <p style="color:#9ca3af;margin:0;font-size:14px;">LOCRAZO PATRIO · 9 de Julio</p>
           </td>
         </tr>
 
@@ -186,7 +186,7 @@ function testDoPost() {
     postData: {
       contents: JSON.stringify({
         codigo: "TEST01",
-        fechaHora: "25/05/2026 12:00",
+        fechaHora: "09/07/2026 12:00",
         nombre: "Juan",
         apellido: "Pérez",
         telefono: "1134567890",

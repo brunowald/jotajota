@@ -114,7 +114,11 @@ export async function POST(req: NextRequest) {
       metodoPago: metodoPagoLabel(form.metodoPago),
       retiroEnvio: form.entrega === "envio"
         ? "Envío a domicilio"
-        : "Retiro en JJ — Lunes 25/5",
+        : form.entrega === "comer-en-jj"
+        ? "Comer en JJ (9/7)"
+        : form.diaRetiro === "miercoles-8"
+        ? "Retiro en JJ — Miércoles 8/7"
+        : "Retiro en JJ — Jueves 9/7",
       direccionEnvio: form.entrega === "envio" ? form.direccion : "",
       observaciones: form.observaciones,
       confirmado: "No",

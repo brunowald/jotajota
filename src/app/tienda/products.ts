@@ -22,6 +22,7 @@ export type Product = {
   customizations?: CustomizationDef[];
   promoIncludes?: PromoIncludes;
   available: boolean;
+  noDisponibleEnEvento?: boolean;
 };
 
 export type PromoSlot = {
@@ -190,6 +191,36 @@ export const PRODUCTS: Product[] = [
     price: 6660,
     available: true,
   },
+  {
+    id: "portillo-chardonnay-3x1",
+    name: "Portillo Chardonnay 3x1",
+    description: "Pack x3 botellas",
+    emoji: "🥂",
+    category: "bebida",
+    price: 16000,
+    available: true,
+    noDisponibleEnEvento: true,
+  },
+  {
+    id: "salentein-malbec",
+    name: "Salentein Reserva Malbec",
+    description: "",
+    emoji: "🍷",
+    category: "bebida",
+    price: 20000,
+    available: true,
+    noDisponibleEnEvento: true,
+  },
+  {
+    id: "promo-copa-del-mundo",
+    name: "Promo Copa del Mundo",
+    description: "1 Portillo Chardonnay + 1 Salentein Reserva + 1 Salentein Extra Brut",
+    emoji: "🏆",
+    category: "bebida",
+    price: 50000,
+    available: true,
+    noDisponibleEnEvento: true,
+  },
 ];
 
 export function createPromoSlots(product: Product): PromoSlot[] {
@@ -237,7 +268,7 @@ export function getLocroPrice(tipo?: string, picante?: string): number {
 export function calculateTotal(
   entries: CartEntry[],
   quantities: Record<string, number>,
-  entrega: "retiro" | "envio"
+  entrega: "retiro" | "envio" | "comer-en-jj"
 ): number {
   let total = 0;
   for (const entry of entries) {
@@ -253,7 +284,7 @@ export function calculateTotal(
   )) {
     total += (product.price ?? 0) * (quantities[product.id] || 0);
   }
-  if (entrega === "envio") total += 3000;
+  if (entrega === "envio") total += 3500;
   return total;
 }
 

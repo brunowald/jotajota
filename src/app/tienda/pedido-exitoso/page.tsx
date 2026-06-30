@@ -18,6 +18,11 @@ function PedidoExitosoContent() {
   const codigo = searchParams.get("codigo") ?? "";
   const metodo = searchParams.get("metodo") ?? "transferencia";
   const entrega = searchParams.get("entrega") ?? "retiro";
+  const diaRetiro = searchParams.get("diaRetiro") ?? "";
+  const totalParam = searchParams.get("total");
+  const totalFormateado = totalParam
+    ? `$${Number(totalParam).toLocaleString("es-AR")}`
+    : null;
 
   const isTransferencia = metodo === "transferencia";
   const isRetiro = metodo === "retiro";
@@ -72,6 +77,15 @@ function PedidoExitosoContent() {
         <div className="card bg-dark border-warning mb-4">
           <div className="card-body">
             <h5 className="text-warning fw-bold mb-3">🏦 Datos para la transferencia</h5>
+            {totalFormateado && (
+              <div
+                className="text-center rounded-3 p-3 mb-3"
+                style={{ background: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.3)" }}
+              >
+                <div className="text-secondary small mb-1">MONTO A TRANSFERIR</div>
+                <div className="fw-bold text-warning" style={{ fontSize: "1.8rem" }}>{totalFormateado}</div>
+              </div>
+            )}
             <div className="d-flex flex-column gap-2">
               {[
                 { label: "Titular", value: TRANSFER_DATA.titular },
@@ -145,14 +159,19 @@ function PedidoExitosoContent() {
           <h5 className="text-info fw-bold mb-3">🗓️ Horarios</h5>
           {entrega === "envio" ? (
             <p className="text-light mb-0">
-              📦 Entrega a domicilio el <strong>25 de Mayo</strong> entre las <strong>11:00 y las 13:30 hs</strong>
+              📦 Entrega a domicilio el <strong>9 de Julio</strong> entre las <strong>10:30 y las 13:30 hs</strong>
+            </p>
+          ) : entrega === "comer-en-jj" ? (
+            <p className="text-light mb-0">
+              🍽️ Nos vemos el <strong>Jueves 9 de Julio</strong> en JJ — Jean Jaurés 347, CABA
+            </p>
+          ) : diaRetiro === "miercoles-8" ? (
+            <p className="text-light mb-0">
+              📍 Retiro en JJ el <strong>Miércoles 8 de Julio</strong> de <strong>17:00 a 21:00 hs</strong>
             </p>
           ) : (
             <p className="text-light mb-0">
-              📍 Retiro en JJ el{" "}
-              <strong> Lunes 25 de Mayo
-              </strong>{" "}
-              de <strong>10:00 a 15:00 hs</strong>
+              📍 Retiro en JJ el <strong>Jueves 9 de Julio</strong> de <strong>10:30 a 14:30 hs</strong>
             </p>
           )}
         </div>
