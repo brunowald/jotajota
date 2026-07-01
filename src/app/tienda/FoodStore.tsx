@@ -452,7 +452,7 @@ function CartSummary({
   onRemove: (entryId: string) => void;
 }) {
   const bebidas = PRODUCTS.filter(
-    (p) => (p.category === "bebida" || (p.category === "comida" && !p.customizations?.length)) && p.available && p.price !== null && (quantities[p.id] || 0) > 0
+    (p) => (p.category === "bebida" || p.category === "aporte" || (p.category === "comida" && !p.customizations?.length)) && p.available && p.price !== null && (quantities[p.id] || 0) > 0
   );
 
   return (
@@ -760,6 +760,7 @@ export default function FoodStore() {
   const bebidas = PRODUCTS.filter(
     (p) => p.category === "bebida" && (!p.noDisponibleEnEvento || form.entrega !== "comer-en-jj")
   );
+  const aportes = PRODUCTS.filter((p) => p.category === "aporte");
 
   return (
     <div>
@@ -846,6 +847,39 @@ export default function FoodStore() {
               />
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* APORTE SOLIDARIO */}
+      <section className="mb-5">
+        <div
+          className="rounded-4 p-4"
+          style={{ background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.2)" }}
+        >
+          <h3 className="fw-bold mb-1" style={{ color: "#f87171" }}>❤️ Aporte Solidario</h3>
+          <p className="mb-4" style={{ color: "#9ca3af", fontSize: "0.9rem" }}>
+            Con este aporte solidario nos es posible llevar locros a varias ollas populares y colaborar con la compra de insumos para merenderos y comedores.
+          </p>
+          <div className="row g-3">
+            {aportes.map((product) => (
+              <div className="col-6 col-sm-4 col-md-3" key={product.id}>
+                <div
+                  className="card h-100 text-center p-3"
+                  style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.25)" }}
+                >
+                  <div style={{ fontSize: 32 }} className="mb-2">{product.emoji}</div>
+                  <div className="fw-bold text-light mb-3" style={{ fontSize: "0.9rem" }}>{product.name}</div>
+                  <div className="mt-auto">
+                    <QuantityControl
+                      quantity={quantities[product.id] || 0}
+                      onDecrement={() => setQuantities((prev) => ({ ...prev, [product.id]: Math.max(0, (prev[product.id] || 0) - 1) }))}
+                      onIncrement={() => setQuantities((prev) => ({ ...prev, [product.id]: (prev[product.id] || 0) + 1 }))}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

@@ -17,7 +17,7 @@ export type Product = {
   name: string;
   description: string;
   emoji: string;
-  category: "promo" | "comida" | "bebida";
+  category: "promo" | "comida" | "bebida" | "aporte";
   price: number | null;
   customizations?: CustomizationDef[];
   promoIncludes?: PromoIncludes;
@@ -212,6 +212,24 @@ export const PRODUCTS: Product[] = [
     noDisponibleEnEvento: true,
   },
   {
+    id: "aporte-5k",
+    name: "Aporte Solidario $5.000",
+    description: "",
+    emoji: "❤️",
+    category: "aporte",
+    price: 5000,
+    available: true,
+  },
+  {
+    id: "aporte-15k",
+    name: "Aporte Solidario $15.000",
+    description: "",
+    emoji: "🫶",
+    category: "aporte",
+    price: 15000,
+    available: true,
+  },
+  {
     id: "promo-copa-del-mundo",
     name: "Promo Copa del Mundo",
     description: "1 Portillo Chardonnay + 1 Salentein Reserva + 1 Salentein Extra Brut",
@@ -280,7 +298,7 @@ export function calculateTotal(
     else if (product.id === "pastelito") total += product.price ?? 0;
   }
   for (const product of PRODUCTS.filter(
-    (p) => (p.category === "bebida" || (p.category === "comida" && !p.customizations?.length)) && p.available && p.price !== null
+    (p) => (p.category === "bebida" || p.category === "aporte" || (p.category === "comida" && !p.customizations?.length)) && p.available && p.price !== null
   )) {
     total += (product.price ?? 0) * (quantities[product.id] || 0);
   }
@@ -335,7 +353,7 @@ export function formatOrderItems(
   }
 
   for (const product of PRODUCTS.filter(
-    (p) => (p.category === "bebida" || (p.category === "comida" && !p.customizations?.length)) && p.available && p.price !== null
+    (p) => (p.category === "bebida" || p.category === "aporte" || (p.category === "comida" && !p.customizations?.length)) && p.available && p.price !== null
   )) {
     const qty = quantities[product.id] || 0;
     if (qty > 0) parts.push(qty > 1 ? `${qty}x ${product.name}` : product.name);
