@@ -31,7 +31,7 @@ type OrderForm = {
   metodoPago: "mp" | "transferencia" | "retiro";
   entrega: "retiro" | "envio" | "comer-en-jj";
   direccion: string;
-  diaRetiro: "miercoles-8" | "jueves-9" | "";
+  diaRetiro: "jueves-9" | "";
   observaciones: string;
 };
 
@@ -1012,7 +1012,6 @@ export default function FoodStore() {
                   <div className="row g-2">
                     {(
                       [
-                        { value: "miercoles-8", label: "Miércoles 8 de Julio", sub: "De 17:00 a 21:00 hs" },
                         { value: "jueves-9", label: "Jueves 9 de Julio", sub: "De 10:30 a 14:30 hs" },
                       ] as const
                     ).map((opt) => (
