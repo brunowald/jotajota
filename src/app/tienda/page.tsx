@@ -1,12 +1,25 @@
 import Image from "next/image";
 import image from "./libro.jpg";
-import FoodStore from "./FoodStore";
 
 export default function TiendaPage() {
   return (
     <div className="container py-4">
-      {/* ── Locrazo Patrio: tienda activa ── */}
-      <FoodStore />
+      {/* ── Locrazo Patrio: venta cerrada ── */}
+      <section className="text-center py-5">
+        <div
+          className="mx-auto p-4 rounded-4"
+          style={{
+            maxWidth: 560,
+            background: "rgba(255,255,255,0.03)",
+            border: "1px solid rgba(255,255,255,0.1)",
+          }}
+        >
+          <h3 className="fw-bold text-light mb-3">¡Gracias!</h3>
+          <p className="text-secondary mb-0">
+            Gracias a todxs por comprar y seguir ayudando a que JJ pueda seguir abriendo sus puertas en momentos tan complejos. Nos vemos pronto!
+          </p>
+        </div>
+      </section>
 
       {/* ── Divisor ── */}
       <hr className="border-secondary my-5" />
