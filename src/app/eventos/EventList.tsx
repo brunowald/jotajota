@@ -22,6 +22,7 @@ interface EventDoc {
 }
 
 type GroupedEvents = Record<string, EventDoc[]>;
+type DayTimestamps = Record<string, number>;
 
 function parseLocalDate(dateString?: string, timeString?: string): Date | null {
   if (!dateString) return null;
@@ -43,8 +44,9 @@ function formatTimeRange(hour?: string, hourEnd?: string): string {
   return `Inicio ${hour}hs - Fin ${hourEnd}hs`;
 }
 
-function groupByDay(events: EventDoc[]): GroupedEvents {
+function groupByDay(events: EventDoc[]): { groups: GroupedEvents; dayTimestamps: DayTimestamps } {
   const groups: GroupedEvents = {};
+  const dayTimestamps: DayTimestamps = {};
   for (const event of events) {
     const dateObj = parseLocalDate(event.data.day);
     const day = dateObj
@@ -55,10 +57,13 @@ function groupByDay(events: EventDoc[]): GroupedEvents {
           day: "numeric",
         })
       : "Sin fecha";
-    if (!groups[day]) groups[day] = [];
+    if (!groups[day]) {
+      groups[day] = [];
+      dayTimestamps[day] = dateObj ? dateObj.getTime() : Infinity;
+    }
     groups[day].push(event);
   }
-  return groups;
+  return { groups, dayTimestamps };
 }
 
 export default function EventList({ events }: { events: EventDoc[] }) {
@@ -75,14 +80,8 @@ export default function EventList({ events }: { events: EventDoc[] }) {
       if (!eventDate) return false;
       return eventDate >= today;
     });
-    const grouped = groupByDay(futureEvents);
-    const sortedDays = Object.keys(grouped).sort((a, b) => {
-      if (a === "Sin fecha") return 1;
-      if (b === "Sin fecha") return -1;
-      const dateA = a !== "Sin fecha" ? Date.parse(a) : 0;
-      const dateB = b !== "Sin fecha" ? Date.parse(b) : 0;
-      return dateA - dateB;
-    }).reverse();
+    const { groups: grouped, dayTimestamps } = groupByDay(futureEvents);
+    const sortedDays = Object.keys(grouped).sort((a, b) => dayTimestamps[a] - dayTimestamps[b]);
     return { grouped, sortedDays };
   }, [events, today]);
 
