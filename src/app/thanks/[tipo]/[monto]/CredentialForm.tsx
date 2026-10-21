@@ -87,7 +87,10 @@ function useDownloadCredential() {
 export default function CredentialForm() {
   const searchParams = useSearchParams();
   const paymentId =
-    searchParams.get("payment_id") ?? searchParams.get("collection_id") ?? "";
+    searchParams.get("payment_id") ??
+    searchParams.get("collection_id") ??
+    searchParams.get("preapproval_id") ??
+    "";
   const allowedAccess = Boolean(paymentId);
 
   const [alreadyGenerated, setAlreadyGenerated] = useState(false);
