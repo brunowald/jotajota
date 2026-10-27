@@ -16,10 +16,22 @@
   background-clip: text;
 }
 
+.month {
+  margin-bottom: 48px;
+}
+
+.monthTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 24px 0;
+  text-transform: uppercase;
+  color: var(--bs-primary);
+}
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
 }
 
 .card {
@@ -32,71 +44,101 @@
   transition:
     transform 0.2s,
     box-shadow 0.2s;
-  height: 500px;
   width: 100%;
   border: 1px solid var(--bs-border-color);
   position: relative;
 }
 .card:hover {
-  transform: translateY(-4px) scale(1.02);
+  transform: translateY(-4px);
   box-shadow: 0 10px 30px rgba(var(--bs-primary-rgb), 0.15);
   border-color: var(--bs-primary);
 }
 
+// Formato post de Instagram (4:5, 1080x1350). Si la imagen tiene otra proporción
+// se ve entera y el fondo se completa con la misma imagen difuminada.
 .imageWrapper {
+  position: relative;
+  display: block;
   width: 100%;
-  height: 200px;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
   background: var(--bs-darker);
   flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  cursor: zoom-in;
 }
 
-.image {
+.imageBlur {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: blur(24px) brightness(0.6);
+  transform: scale(1.2);
+}
+
+.image {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .content {
-  padding: 24px;
+  padding: 20px;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   min-height: 0;
+}
+
+.dateLine {
+  color: var(--bs-primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+// En compu la hora va en su propia línea (.time), en celular junto a la fecha
+.dateTime {
+  display: none;
 }
 
 .category {
   display: inline-block;
   background: var(--bs-primary);
   color: var(--bs-white);
-  padding: 4px 12px;
+  padding: 3px 10px;
   border-radius: 20px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   align-self: flex-start;
 }
 
 .title {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   line-height: 1.3;
   color: var(--bs-text-light);
 }
 
 .time {
   color: var(--bs-secondary);
-  font-size: 0.95rem;
-  margin-bottom: 12px;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
   font-weight: 500;
 }
 
 .desc {
   color: var(--bs-text-muted);
-  margin-bottom: 20px;
-  flex: 1;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -108,10 +150,11 @@
   display: inline-block;
   background: linear-gradient(135deg, var(--bs-primary), var(--bs-secondary));
   color: #fff;
-  padding: 10px 24px;
+  padding: 8px 20px;
   border-radius: 20px;
   text-decoration: none;
   font-weight: 500;
+  font-size: 0.9rem;
   transition:
     background 0.2s,
     box-shadow 0.2s;
@@ -126,21 +169,72 @@
   color: #fff;
   box-shadow: 0 6px 18px rgba(var(--bs-primary-rgb), 0.18);
 }
-.buttonDisabled {
-  background: var(--bs-border-color);
-  color: var(--bs-text-muted);
-  cursor: not-allowed;
+
+.flyerDialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  max-width: 92vw;
+  max-height: 92vh;
+  cursor: zoom-out;
 }
-.buttonDisabled:hover {
-  background: var(--bs-border-color);
+.flyerDialog::backdrop {
+  background: rgba(0, 0, 0, 0.85);
+}
+.flyerImage {
+  display: block;
+  max-width: 92vw;
+  max-height: 92vh;
+  width: auto;
+  height: auto;
+  border-radius: 12px;
 }
 
-@media (max-width: 900px) {
+// Celular: lista compacta, flyer chico a la izquierda
+@media (max-width: 640px) {
   .grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
   .card {
-    height: auto;
-    min-height: 400px;
+    flex-direction: row;
+    border-radius: 14px;
+  }
+  .card:hover {
+    transform: none;
+  }
+  .imageWrapper {
+    width: 104px;
+    align-self: flex-start;
+  }
+  .time,
+  .category {
+    display: none;
+  }
+  .dateTime {
+    display: inline;
+  }
+  .dateLine {
+    margin-bottom: 4px;
+  }
+  .content {
+    padding: 12px 14px;
+  }
+  .title {
+    font-size: 1.05rem;
+    margin-bottom: 4px;
+  }
+  .desc {
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+  .button {
+    padding: 5px 14px;
+    font-size: 0.8rem;
   }
 }

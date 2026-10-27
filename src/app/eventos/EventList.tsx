@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useMemo } from "react";
+import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { PrismicImage, PrismicRichText } from "@prismicio/react";
 import styles from "./eventos.module.scss";
@@ -21,9 +21,6 @@ interface EventDoc {
   };
 }
 
-type GroupedEvents = Record<string, EventDoc[]>;
-type DayTimestamps = Record<string, number>;
-
 function parseLocalDate(dateString?: string, timeString?: string): Date | null {
   if (!dateString) return null;
   const [year, month, day] = dateString.split("-").map(Number);
@@ -38,32 +35,49 @@ function parseLocalDate(dateString?: string, timeString?: string): Date | null {
   return date;
 }
 
-function formatTimeRange(hour?: string, hourEnd?: string): string {
-  if (!hour) return "";
-  if (!hourEnd) return `${hour}hs`;
-  return `Inicio ${hour}hs - Fin ${hourEnd}hs`;
+// Algunos cargan la hora como "20 hs", así que sacamos el sufijo antes de agregarlo
+function cleanHour(hour: string): string {
+  return hour.replace(/\s*hs\.?\s*$/i, "").trim();
 }
 
-function groupByDay(events: EventDoc[]): { groups: GroupedEvents; dayTimestamps: DayTimestamps } {
-  const groups: GroupedEvents = {};
-  const dayTimestamps: DayTimestamps = {};
-  for (const event of events) {
+function formatTimeRange(hour?: string, hourEnd?: string): string {
+  if (!hour) return "";
+  if (!hourEnd) return `${cleanHour(hour)}hs`;
+  return `Inicio ${cleanHour(hour)}hs - Fin ${cleanHour(hourEnd)}hs`;
+}
+
+function hourValue(hour?: string): number {
+  const n = parseFloat((hour || "").replace(":", "."));
+  return isNaN(n) ? 0 : n;
+}
+
+function groupByMonth(events: EventDoc[]): { month: string; events: EventDoc[] }[] {
+  const sorted = [...events].sort(
+    (a, b) =>
+      (a.data.day || "").localeCompare(b.data.day || "") ||
+      hourValue(a.data.hour) - hourValue(b.data.hour)
+  );
+  const months: { month: string; events: EventDoc[] }[] = [];
+  for (const event of sorted) {
     const dateObj = parseLocalDate(event.data.day);
-    const day = dateObj
-      ? dateObj.toLocaleDateString("es-AR", {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })
+    const month = dateObj
+      ? dateObj.toLocaleDateString("es-AR", { month: "long", year: "numeric" })
       : "Sin fecha";
-    if (!groups[day]) {
-      groups[day] = [];
-      dayTimestamps[day] = dateObj ? dateObj.getTime() : Infinity;
-    }
-    groups[day].push(event);
+    const last = months[months.length - 1];
+    if (last && last.month === month) last.events.push(event);
+    else months.push({ month, events: [event] });
   }
-  return { groups, dayTimestamps };
+  return months;
+}
+
+function dateParts(day?: string) {
+  const date = parseLocalDate(day);
+  if (!date) return null;
+  return {
+    weekdayLong: date.toLocaleDateString("es-AR", { weekday: "long" }),
+    day: date.getDate(),
+    month: date.toLocaleDateString("es-AR", { month: "short" }).replace(".", ""),
+  };
 }
 
 export default function EventList({ events }: { events: EventDoc[] }) {
@@ -73,17 +87,23 @@ export default function EventList({ events }: { events: EventDoc[] }) {
     return d;
   }, []);
 
-  const { grouped, sortedDays } = useMemo(() => {
+  const months = useMemo(() => {
     const futureEvents = events.filter(event => {
       if (!event.data.day) return false;
       const eventDate = parseLocalDate(event.data.day);
       if (!eventDate) return false;
       return eventDate >= today;
     });
-    const { groups: grouped, dayTimestamps } = groupByDay(futureEvents);
-    const sortedDays = Object.keys(grouped).sort((a, b) => dayTimestamps[a] - dayTimestamps[b]);
-    return { grouped, sortedDays };
+    return groupByMonth(futureEvents);
   }, [events, today]);
+
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const [flyer, setFlyer] = useState<EventDoc | null>(null);
+
+  const openFlyer = (event: EventDoc) => {
+    setFlyer(event);
+    dialogRef.current?.showModal();
+  };
 
   return (
     <div>
@@ -92,58 +112,74 @@ export default function EventList({ events }: { events: EventDoc[] }) {
           <PageTitle>Eventos</PageTitle>
         </div>
       </div>
-      {sortedDays.length === 0 ? (
+      {months.length === 0 ? (
         <p style={{ textAlign: "center", fontSize: "1.2rem", color: "var(--bs-text-muted)" }}>
           No hay eventos programados próximamente.
         </p>
       ) : (
-        sortedDays.map((day) => (
-          <section key={day} style={{ marginBottom: 48 }}>
-            <h2 style={{
-              fontSize: "1.3rem",
-              fontWeight: 700,
-              margin: "32px 0 24px 0",
-              textTransform: "uppercase",
-              color: "var(--bs-primary)"
-            }}>{day}</h2>
+        months.map(({ month, events }) => (
+          <section key={month} className={styles.month}>
+            <h2 className={styles.monthTitle}>{month}</h2>
             <div className={styles.grid}>
-              {grouped[day].map((event, idx) => (
-                <div className={styles.card} key={event.id || idx}>
-                  <div className={styles.imageWrapper}>
-                    <PrismicImage field={event.data.image} className={styles.image} />
-                  </div>
-                  <div className={styles.content}>
-                    {event.data.categoria && (
-                      <span className={styles.category}>{event.data.categoria}</span>
-                    )}
-                    <h2 className={styles.title}>{event.data.title}</h2>
-                    {event.data.hour && (
-                      <p className={styles.time}>
-                        {formatTimeRange(event.data.hour, event.data.hour_end)}
-                      </p>
-                    )}
-                    {event.data.descripcion && (
-                      <PrismicRichText field={event.data.descripcion} components={{
-                        paragraph: ({ children }) => <p className={styles.desc}>{children}</p>
-                      }} />
-                    )}
-                    {event.data.more?.url && (
-                      <Link
-                        href={event.data.more.url}
-                        className={styles.button}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Más info
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              ))}
+              {events.map((event, idx) => {
+                const date = dateParts(event.data.day);
+                const time = formatTimeRange(event.data.hour, event.data.hour_end);
+                return (
+                  <article className={styles.card} key={event.id || idx}>
+                    <button
+                      type="button"
+                      className={styles.imageWrapper}
+                      onClick={() => openFlyer(event)}
+                      aria-label={`Ver flyer de ${event.data.title || "evento"}`}
+                    >
+                      <PrismicImage field={event.data.image} className={styles.imageBlur} alt="" aria-hidden />
+                      <PrismicImage field={event.data.image} className={styles.image} />
+                    </button>
+                    <div className={styles.content}>
+                      {date && (
+                        <p className={styles.dateLine}>
+                          {date.weekdayLong} {date.day} {date.month}
+                          {event.data.hour && (
+                            <span className={styles.dateTime}> · {formatTimeRange(event.data.hour)}</span>
+                          )}
+                        </p>
+                      )}
+                      {event.data.categoria && (
+                        <span className={styles.category}>{event.data.categoria}</span>
+                      )}
+                      <h3 className={styles.title}>{event.data.title}</h3>
+                      {time && <p className={styles.time}>{time}</p>}
+                      {event.data.descripcion && (
+                        <PrismicRichText field={event.data.descripcion} components={{
+                          paragraph: ({ children }) => <p className={styles.desc}>{children}</p>
+                        }} />
+                      )}
+                      {event.data.more?.url && (
+                        <Link
+                          href={event.data.more.url}
+                          className={styles.button}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Más info
+                        </Link>
+                      )}
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </section>
         ))
       )}
+      <dialog
+        ref={dialogRef}
+        className={styles.flyerDialog}
+        onClick={() => dialogRef.current?.close()}
+        onClose={() => setFlyer(null)}
+      >
+        {flyer && <PrismicImage field={flyer.data.image} className={styles.flyerImage} />}
+      </dialog>
     </div>
   );
 }
