@@ -6,8 +6,31 @@ import { useSearchParams } from "next/navigation";
 const CREDENTIAL_STORAGE_PREFIX = "jj_credential_";
 const REDIRECT_AFTER_DOWNLOAD = "/comunidad";
 const LOGO_URL = "/logo-jj-2025.png";
-const CARD_WIDTH = 400;
-const CARD_HEIGHT = 260;
+const CARD_WIDTH = 506;
+const CARD_HEIGHT = 319;
+const FONTS_URL =
+  "https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;700&display=swap";
+const STRIPE_COLORS = ["#fdb496", "#ec6535", "#e0352a", "#e9184c"];
+
+async function loadCredentialFonts() {
+  if (!document.querySelector(`link[href="${FONTS_URL}"]`)) {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = FONTS_URL;
+    document.head.appendChild(link);
+    await new Promise<void>((resolve) => {
+      link.onload = () => resolve();
+      link.onerror = () => resolve();
+    });
+  }
+  try {
+    await Promise.all([
+      document.fonts.load('52px "Anton"'),
+      document.fonts.load('700 22px "Manrope"'),
+      document.fonts.load('400 17px "Manrope"'),
+    ]);
+  } catch {}
+}
 
 function drawCredential(
   ctx: CanvasRenderingContext2D,
@@ -21,38 +44,42 @@ function drawCredential(
   const w = CARD_WIDTH;
   const h = CARD_HEIGHT;
 
-  ctx.fillStyle = "#0d1117";
-  ctx.strokeStyle = "hsl(199, 89%, 48%)";
-  ctx.lineWidth = 3;
-  const r = 16;
   ctx.beginPath();
-  ctx.roundRect(0, 0, w, h, r);
-  ctx.fill();
-  ctx.stroke();
+  ctx.roundRect(0, 0, w, h, 14);
+  ctx.clip();
 
-  const logoSize = 72;
-  const logoX = (w - logoSize) / 2;
-  ctx.drawImage(logo, logoX, 24, logoSize, logoSize);
+  const bg = ctx.createLinearGradient(0, 0, w, h);
+  bg.addColorStop(0, "#3d2259");
+  bg.addColorStop(1, "#2f1944");
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, w, h);
 
-  ctx.fillStyle = "hsl(199, 89%, 48%)";
-  ctx.font = "bold 18px Poppins, sans-serif";
+  const stripeH = 11;
+  const stripeW = w / STRIPE_COLORS.length;
+  STRIPE_COLORS.forEach((color, i) => {
+    ctx.fillStyle = color;
+    ctx.fillRect(i * stripeW, h - stripeH, stripeW + 1, stripeH);
+  });
+
+  const logoSize = 134;
+  ctx.drawImage(logo, (w - logoSize) / 2, 17, logoSize, logoSize);
+
   ctx.textAlign = "center";
-  ctx.fillText("SOCIO/A", w / 2, 24 + logoSize + 22);
-  ctx.font = "bold 22px Poppins, sans-serif";
-  ctx.fillText("JJ CIRCUITO CULTURAL", w / 2, 24 + logoSize + 44);
+  ctx.fillStyle = "#ffffff";
+  ctx.font = '52px "Anton", sans-serif';
+  ctx.fillText("COMUNIDAD JJ", w / 2, 205, w - 40);
 
-  ctx.fillStyle = "#e6edf3";
-  ctx.font = "600 20px Poppins, sans-serif";
   const fullName = [nombre, apellido].filter(Boolean).join(" ").trim() || "—";
-  ctx.fillText(fullName, w / 2, 24 + logoSize + 78);
+  ctx.font = '700 22px "Manrope", sans-serif';
+  ctx.fillText(fullName, w / 2, 245, w - 40);
 
-  ctx.fillStyle = "#8b949e";
-  ctx.font = "14px Poppins, sans-serif";
-  ctx.fillText(`DNI ${dni || "—"}`, w / 2, 24 + logoSize + 102);
+  ctx.fillStyle = "#fdb496";
+  ctx.font = '400 17px "Manrope", sans-serif';
+  ctx.fillText(`DNI ${formatDni(dni) || "—"}`, w / 2, 272);
+}
 
-  ctx.fillStyle = "#6e7681";
-  ctx.font = "11px Poppins, sans-serif";
-  ctx.fillText("Presentar junto al DNI físico", w / 2, h - 20);
+function formatDni(dni: string) {
+  return dni.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
 function useDownloadCredential() {
@@ -63,6 +90,8 @@ function useDownloadCredential() {
       canvas.height = CARD_HEIGHT * 2;
       const ctx = canvas.getContext("2d");
       if (!ctx) return false;
+
+      await loadCredentialFonts();
 
       const img = new Image();
       img.crossOrigin = "anonymous";
